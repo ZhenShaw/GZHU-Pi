@@ -10,5 +10,6 @@
     >
       {{ item }}
     </view>
+    <view class="tab" style="top:{{top}}%; left:{{left}}%"></view>
   </view>
 </view>

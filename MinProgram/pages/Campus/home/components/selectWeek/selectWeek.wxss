@@ -20,6 +20,7 @@
   height: 300px;
   background-color: #fff;
   border-radius: 1rem;
+  box-shadow: 20px 20px 60px gray;
 }
 
 .eachWeek {
@@ -28,19 +29,30 @@
   align-items: center;
   width: 50px;
   height: 50px;
-  margin: auto;
+  margin: 5px;
   font-size: 1.5em;
+  color: #aaaaaa;
+  transition: color 0.5s ease;
 }
 
 .activeClass {
-  border-radius: 1rem;
-  color: aliceblue;
-  background-color: gray;
+  /* border-radius: 1rem; */
+  color: #5800a5;
+  /* background-color: gray; */
 }
-/* 
-.hover-class {
+
+.tab {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  margin: 5px;
   border-radius: 1rem;
-  color: aliceblue;
-  background-color: gray;
-  box-shadow: -5px -5px 5px rgb(70, 70, 70) inset;
+  opacity: 0.3;
+  background: linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
+  transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* .tab {
+  left: 60%;
+  top: 80%;
 } */

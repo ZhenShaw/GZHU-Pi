@@ -16,7 +16,7 @@
 		"nodeModules": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": false,
-		"scopeDataCheck": true,
+		"scopeDataCheck": false,
 		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": false,
@@ -34,7 +34,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.0",
-	"appid": "wxe194e8a8d4601dae",
+	"appid": "wx4076d4b65b0a9076",
 	"projectname": "GZHU%20Pi",
 	"debugOptions": {
 		"hidedInDevtools": []
