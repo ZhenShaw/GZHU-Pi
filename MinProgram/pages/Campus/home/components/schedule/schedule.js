@@ -1,7 +1,7 @@
 var utils = require("../../../../../utils/utils.js");
 var Data = require("../../../../../utils/data.js");
 var Config = require("../../../../../utils/config.js");
-var showTimes = 5;
+var showTimes = 0;
 var maxWeeks = 25;
 Component({
   properties: {
@@ -27,14 +27,26 @@ Component({
     timeLine: Data.timeLine,
     colors: Data.colors,
     kbList: Data.course_sample,
+
+    // 选择周次
     showSelectWeek: false,
+    // 最大周数25
     maxWeeks: maxWeeks,
   },
 
   methods: {
     changeWeek() {
-      console.log("click");
+      this.animate(
+        "#schedule",
+        [
+          { scale: [1, 1], ease: "ease" },
+          { scale: [0.98, 0.98], ease: "ease-in-out" },
+          { scale: [0.99, 0.99], ease: "ease" },
+        ],
+        100
+      );
       this.setData({
+        // scale: 0.98,
         showSelectWeek: true,
       });
     },
@@ -45,6 +57,11 @@ Component({
       });
     },
     closewin() {
+      this.animate(
+        "#schedule",
+        [{ scale: [0.99, 0.99] }, { scale: [1, 1] }],
+        100
+      );
       this.setData({
         showSelectWeek: false,
       });

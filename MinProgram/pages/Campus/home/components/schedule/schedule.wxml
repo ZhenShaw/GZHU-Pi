@@ -1,20 +1,21 @@
 <wxs src="module.wxs" module="tools" />
-<view wx:if="{{show}}" class="schedule">
+
+<!-- 周次选择栏 -->
+<selectWeek
+  wx:if="{{showSelectWeek}}"
+  bind:closewin="closewin"
+  bind:neweek="setWeek"
+  prop-max-week="{{maxWeeks}}"
+  prop-curent-week="{{week}}"
+></selectWeek>
+
+<view id="schedule" wx:if="{{show}}" class="schedule" style="scale:{{scale}}">
   <image
     mode="widthFix"
     class="bg"
     src='{{bg.length>15?bg:""}}'
     style="filter:blur({{blur}}px);background-image: linear-gradient(to top,{{bg.length<=15?bg:''}})"
   ></image>
-
-  <!-- 周次选择栏 -->
-  <selectWeek
-    wx:if="{{showSelectWeek}}"
-    bind:closewin="closewin"
-    bind:neweek="setWeek"
-    prop-max-week="{{maxWeeks}}"
-    prop-curent-week="{{week}}"
-  ></selectWeek>
 
   <!-- 日期栏 -->
   <view class="date-bar">

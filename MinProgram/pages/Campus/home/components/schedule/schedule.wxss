@@ -23,7 +23,7 @@
   top: 0;
   /* -webkit-filter: blur(8px); */
   /* filter: blur(8px); */
-  opacity: 0.9
+  opacity: 0.9;
 }
 
 /* 日期栏 */
