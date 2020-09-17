@@ -11,12 +11,12 @@ Page({
     semList: wx.$param.school["sem_list"],
     semIndex: wx.$param.school["sem_list"].indexOf(wx.$param.school["year_sem"]), //默认显示的学期索引
 
-    yearIndex: 1,
+    yearIndex: 2,
     collegeIndex: 5,
     majorIndex: 1,
     classIndex: 0,
     majors: [],
-    years: ["2019", "2018", "2017", "2016", "2015"],
+    years: ["2022","2021","2020","2019", "2018", "2017", "2016"],
     colleges: ["地理科学学院", "法学院", "公共管理学院", "环境科学与工程学院",
       "化学化工学院", "计算机科学与网络工程学院", "机械与电气工程学院", "教育学院", "建筑与城市规划学院",
       "旅游学院", "美术与设计学院", "人文学院", "生命科学学院", "数学与信息科学学院",
@@ -172,7 +172,7 @@ Page({
   },
 
   // 获取未处理的班级信息
-  getClassList(college = "计算机", year = "2018") {
+  getClassList(college = "计算机", year = this.data.years[this.data.yearIndex]) {
     let that = this
     let Obj = new wx.BaaS.TableObject("college_major_class")
     let query = new wx.BaaS.Query()

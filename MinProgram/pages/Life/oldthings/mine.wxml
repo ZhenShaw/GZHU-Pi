@@ -8,7 +8,7 @@
 
 <!-- 列表 -->
 <view wx:if="{{dataSet.length>0}}">
-	<brickflow dataSet="{{dataSet}}" option="{{brick_option}}" bind:tapCard="tapCard" bind:tapLike="handleLike" bind:tapUser="handleUserEvent" bind:onCardExpanded="handleExpand" />
+	<brickflow _tplName="oldthings" dataSet="{{dataSet}}" option="{{brick_option}}" bind:tapCard="tapCard" bind:tapLike="handleLike" bind:tapUser="handleUserEvent" bind:onCardExpanded="handleExpand" />
 </view>
 
 <view class="cu-load" wx:if="{{dataSet.length>0 && loadDone}}">
