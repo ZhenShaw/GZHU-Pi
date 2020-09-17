@@ -68,17 +68,21 @@ type Configure struct {
 		InitModels bool  `json:"init_models" remark:"是否初始化数据库模型" must:"false"`
 		Port       int64 `json:"port" remark:"http端口"`
 	}
+
 	Secret struct {
 		JWT string `json:"jwt" remark:"jwt密钥"`
 	}
+
 	Rpc struct {
 		Addr  string `json:"addr" remark:"rpc主机地址"`
 		Token string `json:"token" remark:"rpc连接秘钥" must:"false"`
 	}
+
 	Kafka struct {
 		Enabled bool     `json:"enabled" must:"false"`
 		Broker  []string `json:"broker" remark:"节点地址"`
 	} `json:"kafka" remark:"kafka集群"`
+
 	Db struct {
 		Type     string `json:"type" remark:"数据库类型"`
 		Host     string `json:"host" remark:"数据库主机"`
@@ -88,21 +92,25 @@ type Configure struct {
 		Dbname   string `json:"dbname" remark:"数据库名"`
 		SslMode  string `json:"sslmode" remark:"ssl模式"`
 	}
+
 	Redis struct {
 		Host     string `json:"host" remark:"redis主机"`
 		Port     int64  `json:"port" remark:"redis端口"`
 		Password string `json:"password" remark:"redis密码" must:"false"`
 	}
+
 	Cos struct {
 		Enabled   bool   `json:"enabled" must:"false"`
 		SecretID  string `json:"secret_id" must:"false"`
 		SecretKey string `json:"secret_key" must:"false"`
 	} `json:"cos" remark:"腾讯cos云储存"`
+
 	FacePP struct {
 		Enabled   bool   `json:"enabled" must:"false"`
 		ApiKey    string `json:"api_key" must:"false"`
 		ApiSecret string `json:"api_secret" must:"false"`
 	} `json:"facepp" remark:"face++ 人像抠图api"`
+
 	WeiXin struct {
 		Enabled      bool   `json:"enabled" must:"false"`
 		Notify       bool   `json:"notify" remark:"公众号通知" must:"false"`
@@ -113,6 +121,11 @@ type Configure struct {
 		MinAppID     string `json:"min_app_id" remark:"小程序AppID" must:"false"`
 		MinAppSecret string `json:"min_app_secret" remark:"小程序AppSecret" must:"false"`
 	} `json:"weixin" remark:"微信公众、小程序"`
+
+	MinApp struct {
+		ClientID     string `json:"client_id" remark:"" must:"false"`
+		ClientSecret string `json:"client_secret" remark:"" must:"false"`
+	} `json:"minapp" remark:"知晓云"`
 }
 
 var Conf = &Configure{}

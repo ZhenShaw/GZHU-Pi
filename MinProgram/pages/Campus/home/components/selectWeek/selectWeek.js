@@ -18,17 +18,17 @@ Component({
     // 在组件实例进入页面节点树时执行
     attached: function () {
       // 进入动画
-      this.animate("#weekChoiceWin", [{ opacity: 0 }, { opacity: 0.9 }], 300);
-      this.animate(
-        "#box",
-        [
-          { opacity: 0, scale: [0, 0] },
-          { opacity: 0.9, scale: [1, 1] },
-          { offset: 0.9, opacity: 0.9, scale: [1.01, 1.01] },
-          { opacity: 0.9, scale: [1, 1] },
-        ],
-        300
-      );
+      // this.animate("#weekChoiceWin", [{ opacity: 0 }, { opacity: 0.9 }], 300);
+      // this.animate(
+      //   "#box",
+      //   [
+      //     { opacity: 0, scale: [0, 0] },
+      //     { opacity: 0.9, scale: [1, 1] },
+      //     { offset: 0.9, opacity: 0.9, scale: [1.01, 1.01] },
+      //     { opacity: 0.9, scale: [1, 1] },
+      //   ],
+      //   300
+      // );
 
       // 初始化周表
       let _allweek = [];

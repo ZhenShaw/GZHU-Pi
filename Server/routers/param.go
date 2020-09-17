@@ -10,6 +10,7 @@ package routers
 
 import (
 	"GZHU-Pi/env"
+	"GZHU-Pi/services/minapp"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/logs"
@@ -19,8 +20,21 @@ import (
 )
 
 func Param(w http.ResponseWriter, r *http.Request) {
+	paramType := r.URL.Query().Get("type")
+	if paramType == "app" {
+		getAppParam(w, r)
+		return
+	}
+	if paramType == "modal" {
+		modalParam(w, r)
+		return
+	}
+	modalParam(w, r)
+}
 
-	data, err := getActionParam()
+func modalParam(w http.ResponseWriter, r *http.Request) {
+
+	data, err := getModalParam()
 	if err != nil || data == nil {
 		Response(w, r, nil, http.StatusOK, fmt.Sprint(err))
 		return
@@ -81,7 +95,7 @@ func Param(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getActionParam() (data map[string]interface{}, err error) {
+func getModalParam() (data map[string]interface{}, err error) {
 	key := fmt.Sprintf("gzhupi:param:action")
 	val, err := env.RedisCli.Get(key).Result()
 	if err != nil && err != redis.Nil {
@@ -121,4 +135,32 @@ func getActionParam() (data map[string]interface{}, err error) {
 	}
 
 	return
+}
+
+func getAppParam(w http.ResponseWriter, r *http.Request) {
+
+	minApp, err := minapp.GetMinApp()
+	if err != nil {
+		Response(w, r, nil, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var gs = &env.CacheOptions{
+		Key:      fmt.Sprintf("gzhupi:minapp:param"),
+		Duration: 1 * time.Minute,
+		Receiver: make(map[string]interface{}),
+		Fun: func() (interface{}, error) {
+			return minApp.GetTableData("78887", "5d4daa727b9e3c65e7983f54")
+		},
+	}
+	_, err = env.GetSetCache(gs)
+	if err != nil {
+		logs.Error(err)
+		Response(w, r, nil, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	var data = gs.Receiver.(map[string]interface{})
+
+	Response(w, r, data, http.StatusOK, "request ok")
 }

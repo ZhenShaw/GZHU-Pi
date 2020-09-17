@@ -1,30 +1,16 @@
 <wxs src="module.wxs" module="tools" />
 
 <!-- 周次选择栏 -->
-<selectWeek
-  wx:if="{{showSelectWeek}}"
-  bind:closewin="closewin"
-  bind:neweek="setWeek"
-  prop-max-week="{{maxWeeks}}"
-  prop-curent-week="{{week}}"
-></selectWeek>
+<selectWeek wx:if="{{showSelectWeek}}" bind:closewin="closewin" bind:neweek="setWeek" prop-max-week="{{maxWeeks}}"
+  prop-curent-week="{{week}}"></selectWeek>
 
 <view id="schedule" wx:if="{{show}}" class="schedule" style="scale:{{scale}}">
-  <image
-    mode="widthFix"
-    class="bg"
-    src='{{bg.length>15?bg:""}}'
-    style="filter:blur({{blur}}px);background-image: linear-gradient(to top,{{bg.length<=15?bg:''}})"
-  ></image>
+  <image mode="widthFix" class="bg" src='{{bg.length>15?bg:""}}'
+    style="filter:blur({{blur}}px);background-image: linear-gradient(to top,{{bg.length<=15?bg:''}})"></image>
 
   <!-- 日期栏 -->
   <view class="date-bar">
-    <view
-      class="week"
-      bind:tap="resetWeek"
-      bind:longpress="changeWeek"
-      style='color:{{week==schoolWeek?"":"red"}}'
-    >
+    <view class="week" bind:tap="resetWeek" bind:longpress="changeWeek" style='color:{{week==schoolWeek?"":"red"}}'>
       <view>{{week>0? week:"All"}}</view>
       <view>周</view>
     </view>
@@ -32,21 +18,14 @@
     <view class="week-days" bind:tap="changeWeek">
       <!-- 星期 -->
       <view class="weekday date-item">
-        <view
-          wx:for="{{weekDays}}"
-          wx:key="index"
-          style="width:100rpx;color:{{week==schoolWeek && today==weekDate[index]?'#3da7b3':''}}"
-          >周{{item}}
+        <view wx:for="{{weekDays}}" wx:key="index"
+          style="width:100rpx;color:{{week==schoolWeek && today==weekDate[index]?'#3da7b3':''}}">周{{item}}
         </view>
       </view>
       <!-- 日期 -->
       <view class="date date-item">
-        <view
-          wx:for="{{weekDate}}"
-          wx:key="index"
-          style="width:100rpx;color:{{week==schoolWeek && today==weekDate[index]?'#3da7b3':''}}"
-          >{{item}}</view
-        >
+        <view wx:for="{{weekDate}}" wx:key="index"
+          style="width:100rpx;color:{{week==schoolWeek && today==weekDate[index]?'#3da7b3':''}}">{{item}}</view>
       </view>
     </view>
   </view>
@@ -54,46 +33,40 @@
 
   <!-- 课表滑动区域 -->
   <view class="table-body">
+
     <!-- 侧栏 -->
-    <view bindtap="tapSlideBar" style="display:flex;flex-direction:row">
-      <view class="slide-bar" hidden="{{hideTimeLine}}">
-        <view
-          style="width:180rpx;font-size:80%;font-weight:bold;"
-          wx:for="{{timeLine}}"
-          wx:key="index"
-          class="slide-bar-item"
-          >{{item}}</view
-        >
+    <view bindtap='tapSlideBar' style='display:flex;flex-direction:row'>
+      <view class='slide-bar' hidden='{{hideTimeLine}}'>
+        <view style='width:180rpx;font-size:80%;font-weight:bold;' wx:for="{{timeLine}}" wx:key="index"
+          class="slide-bar-item">{{item}}</view>
       </view>
 
-      <view class="slide-bar">
+      <view class='slide-bar'>
         <view wx:for="{{11}}" wx:key="index" class="slide-bar-item">{{item+1}}</view>
       </view>
     </view>
 
-    <swiper
-      indicator-dots="{{true}}"
-      current="{{current}}"
-      circular="{{true}}"
-      bindchange="switchWeek"
-      style="height:1430rpx;width:700rpx"
-    >
+
+    <swiper indicator-dots="{{true}}" current="{{current}}" circular="{{true}}" bindchange="switchWeek"
+      style='height:1430rpx;width:700rpx'>
       <view wx:for="{{[week-1,week,week+1]}}" wx:key="index" wx:for-item="swiper">
         <swiper-item>
           <!-- 课表 -->
           <view wx:for="{{kbList}}" wx:key="index">
-            <view hidden="{{tools.judegShow(item,week)}}">
+            <view hidden='{{tools.judegShow(item,week)}}'>
               <cell bindtap="showDetail" id="{{index}}" course="{{item}}"></cell>
             </view>
           </view>
         </swiper-item>
       </view>
     </swiper>
+
   </view>
 
+
   <!-- 实践课表 -->
-  <view hidden="{{sjkList.length==0?true:false}}">
-    <view class="other-title">实践课程：</view>
+  <view hidden='{{sjkList.length==0?true:false}}'>
+    <view class='other-title'>实践课程：</view>
     <view class="other-course" wx:for="{{sjkList}}" wx:key="index">
       <view>{{item.sjk_course_name}}</view>
       <!-- <view style='flex:3'>{{item.sjk_course_name}}</view>
@@ -101,52 +74,48 @@
       <view style='flex:1;text-align:center'>{{item.sjk_weeks}}</view> -->
     </view>
   </view>
-  <view class="tips">Powered by Shaw</view>
+  <view class='tips'>Powered by Shaw</view>
 
   <!-- 课程详情弹窗 -->
   <modal custom="true" show="{{showDetail}}" bind:cancel="cancelModal">
-    <swiper
-      bindchange="switchCourse"
-      indicator-dots="{{detail.length>1?true:false}}"
-      current="{{currentIndex}}"
-      style="height:580rpx"
-    >
+    <swiper bindchange="switchCourse" indicator-dots="{{detail.length>1?true:false}}" current="{{currentIndex}}"
+      style='height:580rpx'>
       <swiper-item wx:for="{{detail}}" wx:key="index">
-        <view class="course" style="background-color:{{colors[item.color]}}">
+        <view class='course' style='background-color:{{colors[item.color]}}'>
           <view>{{item.course_name}}</view>
         </view>
-        <view style="padding:10rpx">
-          <view class="detail-item">
-            <view class="key">教室</view>
-            <view class="value">{{item.class_place}}</view>
+        <view style='padding:10rpx'>
+          <view class='detail-item'>
+            <view class='key'>教室</view>
+            <view class='value'>{{item.class_place}}</view>
           </view>
-          <view class="detail-item">
-            <view class="key">周数</view>
-            <view class="value">{{item.weeks}}</view>
+          <view class='detail-item'>
+            <view class='key'>周数</view>
+            <view class='value'>{{item.weeks}}</view>
           </view>
-          <view class="detail-item">
-            <view class="key">节数</view>
-            <view class="value">{{item.course_time}} {{item.which_day}}</view>
+          <view class='detail-item'>
+            <view class='key'>节数</view>
+            <view class='value'>{{item.course_time}} {{item.which_day}}</view>
           </view>
-          <view class="detail-item">
-            <view class="key">教师</view>
-            <view class="value">{{item.teacher}}</view>
+          <view class='detail-item'>
+            <view class='key'>教师</view>
+            <view class='value'>{{item.teacher}}</view>
           </view>
-          <view class="detail-item" wx:if="{{item.check_type!=null}}">
-            <view class="key">考核</view>
-            <view class="value">{{item.check_type}}</view>
+          <view class='detail-item' wx:if="{{item.check_type!=null}}">
+            <view class='key'>考核</view>
+            <view class='value'>{{item.check_type}}</view>
           </view>
-          <view class="detail-item" wx:if="{{item.credit!=null}}">
-            <view class="key">学分</view>
-            <view class="value">{{item.credit}}</view>
+          <view class='detail-item' wx:if="{{item.credit!=null}}">
+            <view class='key'>学分</view>
+            <view class='value'>{{item.credit}}</view>
           </view>
         </view>
       </swiper-item>
     </swiper>
-    <view class="operate">
-      <image id="0" bindtap="navTo" src="/assets/add.svg"></image>
-      <image id="1" bindtap="navTo" src="/assets/edit.svg"></image>
-      <image id="2" bindtap="navTo" src="/assets/delete.svg"></image>
+    <view class='operate'>
+      <image id="0" bindtap='navTo' src='/assets/add.svg'></image>
+      <image id="1" bindtap='navTo' src='/assets/edit.svg'></image>
+      <image id="2" bindtap='navTo' src='/assets/delete.svg'></image>
     </view>
   </modal>
 </view>

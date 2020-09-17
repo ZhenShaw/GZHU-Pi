@@ -21,7 +21,7 @@ import (
 var Jwxt sync.Map
 
 func isTestUser(user string) bool {
-	if user == "20180831" || user == "20200504" {
+	if user == "20180829" || user == "20200504" {
 		return true
 	}
 	return false

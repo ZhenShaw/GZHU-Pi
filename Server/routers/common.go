@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"reflect"
 	"regexp"
+	"runtime"
 	"time"
 )
 
@@ -115,6 +116,10 @@ func Recover(h http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if err := recover(); err != nil {
+				var buf [2048]byte
+				n := runtime.Stack(buf[:], false)
+				logs.Error("==> %s\n", string(buf[:n]))
+
 				err := fmt.Errorf("recover a panic: %+v", err)
 				logs.Error(err)
 				Response(w, r, nil, http.StatusInternalServerError, err.Error())

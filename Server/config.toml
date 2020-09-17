@@ -66,6 +66,11 @@ enabled = false
 api_key = ""
 api_secret = ""
 
+# 知晓云
+[minapp]
+client_id = ""
+client_secret = ""
+
 
 # ================================================
 # 以下是pRest的配置 Documents https://postgres.rest/

@@ -31,7 +31,7 @@ Content-Type: application/x-www-form-urlencoded
 ###
 
 # 用户参数
-GET {{baseUrl}}/param
+GET {{baseUrl}}/param?type=app
 Content-Type: application/x-www-form-urlencoded
 
 ###
