@@ -101,6 +101,16 @@ username={{username}}&password={{password}}
 
 ###
 
+
+# 第二课堂
+POST {{baseUrl}}/api/v1/second/my
+Content-Type: application/x-www-form-urlencoded
+
+username={{username}}&password={{password}}
+
+
+###
+
 # 图书查询
 GET {{baseUrl}}/library/search?query=python&page=1
 Content-Type: application/x-www-form-urlencoded

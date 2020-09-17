@@ -6,12 +6,12 @@ import (
 )
 
 var (
-	LoginError = fmt.Errorf("账号或密码错误，如需修改请前往 http://my.gzhu.edu.cn")
+	LoginError = fmt.Errorf("账号或密码错误，请重新输入，如需修改请前往 http://my.gzhu.edu.cn")
 	AuthError  = fmt.Errorf("认证失败，可能是缓存失效，请重试")
 
 	SemCode = []string{"3", "12"} //3是第一学期，12是第二学期
-	Year    = "2019"
-	FirstMonday="2020-03-02"
+	Year    = "2020"
+	FirstMonday="2020-09-14"
 
 	//jsonHeader       = http.Header{"Content-Type": []string{"application/json"}}
 	urlencodedHeader = http.Header{"Content-Type": []string{"application/x-www-form-urlencoded"}}

@@ -151,7 +151,7 @@ func SetDemoCache(keyType, subKey string, data interface{}) {
 	}
 
 	key := fmt.Sprintf("gzhupi:demo:%s:%s", keyType, subKey)
-	_, err = env.RedisCli.Set(key, cache, 60*24*time.Hour).Result()
+	_, err = env.RedisCli.Set(key, cache, 120*24*time.Hour).Result()
 	if err != nil {
 		logs.Error(err)
 	}

@@ -52,6 +52,7 @@ func (c *JWClient) doRequest(method, url string, header http.Header, body io.Rea
 	for k, v := range header {
 		req.Header[k] = v
 	}
+	//req.Close = true // 禁止TCP连接重用
 	resp, err := c.Client.Do(req)
 	//defer c.Client.CloseIdleConnections()
 
