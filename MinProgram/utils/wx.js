@@ -291,8 +291,8 @@ wx.$authSync = async function (times = 1) {
     return
   }
 
-  let user
-  user = await wx.BaaS.auth.getCurrentUser().then(user => {
+  let user = await wx.BaaS.auth.getCurrentUser().then(user => {
+    console.log("minapp user", user)
     return user
   }).catch(err => {
     if (err.code === 604) {
@@ -307,9 +307,12 @@ wx.$authSync = async function (times = 1) {
     }, 3000);
     return
   }
-
+  let stu_id = wx.getStorageSync("account").username
+  if (stu_id == undefined || stu_id == null) {
+    stu_id = ""
+  }
   let form = {
-    // stu_id: stu_id,
+    stu_id: stu_id,
     minapp_id: user.user_id,
     open_id: user.openid,
     union_id: user.unionid,
@@ -407,4 +410,63 @@ wx.$checkImg = async function (path) {
     return false
   })
   return is_risk
+}
+
+// 线上配置 > 缓存配置 > 默认配置
+wx.$syncParam = async function () {
+
+  let param = wx.getStorageSync("app_param")
+  if (param != "") wx.$param = param
+
+  let app_param = await wx.$ajax({
+      url: wx.$param.server["prest"] + "/param?type=app",
+      // url: "http://localhost:9000/api/v1/param?type=app",
+      method: "get",
+      showErr: false,
+    })
+    .then(res => {
+      if (!res || !res.data || !res.data.data) {
+        console.error(res)
+        return
+      }
+      console.log("在线配置：", res.data.data)
+      // verify模式下 username有效且不是测试账号放行
+      let account = wx.getStorageSync("account")
+      if (res.data.data.mode == "verify") {
+        if (!!account.username && account.username != "20200504" && account.username != "20180829") {
+          res.data.data.mode = "prod"
+        }
+      }
+      wx.setStorageSync("app_param", res.data.data)
+      wx.$param = res.data.data
+
+    }).catch(err => {
+      console.error("app_param", err)
+    })
+
+}
+
+
+wx.$update = function () {
+  // 检测更新版本
+  const updateManager = wx.getUpdateManager()
+  updateManager.onCheckForUpdate(function (res) {
+    // 请求完新版本信息的回调
+    console.log("新版本：", res.hasUpdate)
+  })
+  updateManager.onUpdateReady(function () {
+    wx.showModal({
+      title: '更新提示',
+      content: '新版本已经准备好，是否重启应用？\n如遇缓存丢失，请重启小程序。',
+      success(res) {
+        if (res.confirm) {
+          // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+          updateManager.applyUpdate()
+        }
+      }
+    })
+  })
+  updateManager.onUpdateFailed(function () {
+    // 新版本下载失败
+  })
 }

@@ -81,7 +81,7 @@
   },
   "plugins": {
     "sdkPlugin": {
-      "version": "3.9.0",
+      "version": "3.14.3",
       "provider": "wxc6b86e382a1e3294"
     },
     "tencentvideo": {

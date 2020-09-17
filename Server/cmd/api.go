@@ -11,6 +11,7 @@ package cmd
 import (
 	"GZHU-Pi/env"
 	rt "GZHU-Pi/routers"
+	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/logs"
 	"github.com/gorilla/mux"
@@ -23,6 +24,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"io/ioutil"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
@@ -140,9 +142,7 @@ func customRouter(r *mux.Router) *mux.Router {
 
 	r.Handle("/metrics", promhttp.Handler())
 
-	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		_, _ = w.Write([]byte("Hello!"))
-	})
+	r.HandleFunc("/", Hello)
 
 	r.HandleFunc("/auth", rt.Recover(rt.Auth)).Methods("POST")
 	r.HandleFunc("/param", rt.Recover(rt.Param))
@@ -173,8 +173,28 @@ func customRouter(r *mux.Router) *mux.Router {
 	//物理实验平台
 	//r.HandleFunc("/exp", test).Methods("POST")
 
+	r.HandleFunc("/jwxt/course2", rt.Recover(rt.Course2)).Methods("POST")
+
 	//四六级、普通话考试查询
 	r.HandleFunc("/cet", rt.Recover(rt.GetCet)).Methods("GET")
 	//r.HandleFunc("/exam/chinese", test).Methods("POST")
 	return r
+}
+
+func Hello(w http.ResponseWriter, r *http.Request) {
+	logs.Debug(r)
+	m := make(map[string]interface{})
+	m["header"] = r.Header
+	m["url"] = r.URL.String()
+
+	_, err := json.Marshal(m)
+	if err != nil {
+		logs.Error(err)
+	}
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		logs.Error(err)
+	}
+	logs.Info(string(body), 111)
+	w.Write(body)
 }

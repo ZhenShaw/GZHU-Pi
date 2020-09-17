@@ -1,223 +1,226 @@
 {
-	"cloudfunctionRoot": "func/",
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": false,
-		"es6": false,
-		"enhance": true,
-		"postcss": true,
-		"preloadBackgroundData": false,
-		"minified": false,
-		"newFeature": true,
-		"coverView": true,
-		"nodeModules": true,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": false,
-		"scopeDataCheck": false,
-		"uglifyFileName": true,
-		"checkInvalidKey": true,
-		"checkSiteMap": false,
-		"uploadWithSourceMap": true,
-		"compileHotReLoad": false,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"bundle": true,
-		"useIsolateContext": true,
-		"useCompilerModule": false,
-		"userConfirmedUseCompilerModuleSwitch": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.10.0",
-	"appid": "wx4076d4b65b0a9076",
-	"projectname": "GZHU%20Pi",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-	"scripts": {
-		"beforeCompile": ""
-	},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": [
-				{
-					"id": 0,
-					"name": "头像",
-					"pathName": "module/gzhu/poster",
-					"query": "id=gzhu_tw_poster",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "广大墙发布",
-					"pathName": "pages/Life/wall/post",
-					"query": "",
-					"scene": 1047
-				},
-				{
-					"id": 3,
-					"name": "排名",
-					"pathName": "pages/Campus/grade/rank",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 4,
-					"name": "二手列表",
-					"pathName": "pages/Life/oldthings/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 5,
-					"name": "二手发布",
-					"pathName": "pages/Life/oldthings/post",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "二手详情",
-					"pathName": "pages/Life/oldthings/detail",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "个人二手",
-					"pathName": "pages/Life/oldthings/mine",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 7,
-					"name": "pages/Setting/login/auth",
-					"pathName": "pages/Setting/login/auth",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "数据",
-					"pathName": "pages/Setting/about/data",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 10,
-					"name": "任意门",
-					"pathName": "pages/Campus/course/tools",
-					"query": "id=query",
-					"scene": null
-				},
-				{
-					"id": 11,
-					"name": "第二课堂",
-					"pathName": "pages/Campus/second/second",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "学业情况",
-					"pathName": "pages/Campus/grade/achieve",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 13,
-					"name": "学业列表",
-					"pathName": "pages/Campus/grade/list",
-					"query": "type=专业选修课程",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "图书馆",
-					"pathName": "pages/Campus/library/search",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "投票",
-					"pathName": "module/vote/vote",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 15,
-					"name": "广大墙",
-					"pathName": "pages/Life/wall/wall",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 16,
-					"name": "广大墙详情",
-					"pathName": "pages/Life/wall/detail",
-					"query": "id=1",
-					"scene": 1154
-				},
-				{
-					"id": 17,
-					"name": "pages/Campus/tools/notice",
-					"pathName": "pages/Campus/tools/notice",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 18,
-					"name": "webview",
-					"pathName": "pages/Setting/webview/webview",
-					"query": "src=https://mp.weixin.qq.com/s/IgRFhaFIuv_FFxx0fZLJjg",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "考试查询",
-					"pathName": "pages/Campus/tools/exam",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "本地配置",
-					"pathName": "pages/Campus/home/home",
-					"query": "",
-					"scene": 1077
-				}
-			]
-		}
-	}
+  "cloudfunctionRoot": "func/",
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": false,
+    "enhance": true,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": false,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": true,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": false,
+    "scopeDataCheck": false,
+    "uglifyFileName": true,
+    "checkInvalidKey": true,
+    "checkSiteMap": false,
+    "uploadWithSourceMap": true,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "bundle": true,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": []
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.10.0",
+  "appid": "wxe194e8a8d4601dae",
+  "projectname": "GZHU%20Pi",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "isGameTourist": false,
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+  "scripts": {
+    "beforeCompile": ""
+  },
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "currentL": -1,
+      "list": []
+    },
+    "gamePlugin": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": -1,
+      "list": [
+        {
+          "id": 0,
+          "name": "头像",
+          "pathName": "module/gzhu/poster",
+          "query": "id=gzhu_tw_poster",
+          "scene": null
+        },
+        {
+          "id": 1,
+          "name": "广大墙发布",
+          "pathName": "pages/Life/wall/post",
+          "query": "",
+          "scene": 1047
+        },
+        {
+          "id": 3,
+          "name": "排名",
+          "pathName": "pages/Campus/grade/rank",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 4,
+          "name": "二手列表",
+          "pathName": "pages/Life/oldthings/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 5,
+          "name": "二手发布",
+          "pathName": "pages/Life/oldthings/post",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "二手详情",
+          "pathName": "pages/Life/oldthings/detail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "个人二手",
+          "pathName": "pages/Life/oldthings/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 7,
+          "name": "pages/Setting/login/auth",
+          "pathName": "pages/Setting/login/auth",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "数据",
+          "pathName": "pages/Setting/about/data",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 10,
+          "name": "任意门",
+          "pathName": "pages/Campus/course/tools",
+          "query": "id=query",
+          "scene": null
+        },
+        {
+          "id": 11,
+          "name": "第二课堂",
+          "pathName": "pages/Campus/second/second",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "学业情况",
+          "pathName": "pages/Campus/grade/achieve",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 13,
+          "name": "学业列表",
+          "pathName": "pages/Campus/grade/list",
+          "query": "type=专业选修课程",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "图书馆",
+          "pathName": "pages/Campus/library/search",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "投票",
+          "pathName": "module/vote/vote",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 15,
+          "name": "广大墙",
+          "pathName": "pages/Life/wall/wall",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 16,
+          "name": "广大墙详情",
+          "pathName": "pages/Life/wall/detail",
+          "query": "id=1",
+          "scene": 1154
+        },
+        {
+          "id": 17,
+          "name": "pages/Campus/tools/notice",
+          "pathName": "pages/Campus/tools/notice",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 18,
+          "name": "webview",
+          "pathName": "pages/Setting/webview/webview",
+          "query": "src=https://mp.weixin.qq.com/s/IgRFhaFIuv_FFxx0fZLJjg",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "考试查询",
+          "pathName": "pages/Campus/tools/exam",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "本地配置",
+          "pathName": "pages/Campus/home/home",
+          "query": "",
+          "scene": 1077
+        }
+      ]
+    }
+  }
 }

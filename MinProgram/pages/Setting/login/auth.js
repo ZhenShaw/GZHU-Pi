@@ -131,7 +131,7 @@ Page({
       })
       .then(res => {
         console.log("auth", res)
-        if (res.data.id > 0 && res.data.open_id == user.openid) {
+        if (res.data && res.data.id > 0 && res.data.open_id == user.openid) {
           wx.setStorage({
             key: 'gzhupi_user',
             data: res.data,

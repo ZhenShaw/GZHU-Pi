@@ -14,8 +14,8 @@ import (
 )
 
 type CourseData struct {
-	CourseList    []*env.TStuCourse    `json:"course_list"  remark:"课程列表"`
-	SjkCourseList []*SjkCourse `json:"sjk_course_list" remark:"实践课"`
+	CourseList    []*env.TStuCourse `json:"course_list"  remark:"课程列表"`
+	SjkCourseList []*SjkCourse      `json:"sjk_course_list" remark:"实践课"`
 }
 
 //type Course env.TStuCourse

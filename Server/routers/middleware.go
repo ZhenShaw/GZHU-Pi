@@ -32,10 +32,6 @@ func fake(u *env.VUser) bool {
 	if len(u.StuID.String) > 2 {
 		return false
 	}
-	t, _ := time.Parse("2006-01-02", "2020-06-18")
-	if u.CreatedAt.Unix() > t.Unix() {
-		return true
-	}
 	return false
 }
 

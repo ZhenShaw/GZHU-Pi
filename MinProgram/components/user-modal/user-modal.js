@@ -49,8 +49,7 @@ Component({
   lifetimes: {
     attached: function () {
       wx.$ajax({
-          url: wx.$param.server["prest"] + "/param",
-          // url: "http://192.168.2.214:9000/api/v1/param",
+          url: wx.$param.server["prest"] + "/param?type=modal",
           method: "get",
           showErr: false,
           header: {
@@ -58,7 +57,7 @@ Component({
           }
         })
         .then(res => {
-          console.log("param", res)
+          console.log("modal_param", res)
           this.setData({
             action: res.data
           })

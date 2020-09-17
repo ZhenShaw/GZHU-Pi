@@ -14,12 +14,12 @@
   </view>
   <view class='book-info'>
     <view class='cover'>
-      <image mode='aspectFit' src='{{douban.image==""?noCover:douban.image}}'></image>
+      <image mode='aspectFit' src='{{!douban||!douban.image?noCover:douban.image}}'></image>
     </view>
     <view class='info'>
       <view>
         <text>著者：</text>
-        <text style='color:rgb(44, 43, 43)' wx:if="{{douban.author==''}}">{{book.author}}</text>
+        <text style='color:rgb(44, 43, 43)' wx:if="{{!douban||!douban.author}}">{{book.author}}</text>
         <text style='color:rgb(44, 43, 43)' wx:if="{{exist&&douban.author!=''}}" wx:for="{{douban.author}}" wx:key="index">{{item}} </text>
       </view>
       <view>

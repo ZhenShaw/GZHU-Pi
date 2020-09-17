@@ -19,6 +19,7 @@ import (
 	"math"
 	"reflect"
 	"strconv"
+	"time"
 )
 
 const (
@@ -269,7 +270,8 @@ func SaveStuInfo(info *TStuInfo) (err error) {
 		logs.Error(err)
 		return
 	}
-	if stu.ClassID != info.ClassID || stu.College != info.College {
+	if stu.ClassID != info.ClassID || stu.College != info.College ||
+		stu.CollegeID != info.CollegeID || stu.MajorID != info.MajorID {
 		logs.Info("%s 更新信息", stu.StuID)
 		err = db.Model(&stu).Where("stu_id = ?", info.StuID).Update(info).Error
 		if err != nil {
@@ -288,14 +290,22 @@ func SaveCourseNotify(notifies []TNotify) (err error) {
 		if !v.Digest.Valid || v.Digest.String == "" {
 			err = fmt.Errorf("enpty digest %v", v)
 			logs.Error(err)
-			return
+			continue
+		}
+
+		//分布式锁
+		key := fmt.Sprintf("gzhupi:lock:%s", v.Digest.String)
+		ok, err := RedisCli.SetNX(key, v.Digest.String, 2*time.Second).Result()
+		if !ok {
+			logs.Warn("get distributed lock failed: %s", key)
+			continue
 		}
 
 		var val int64
 		val, err = RedisCli.ZRank(KeyCourseNotifyZSet, v.Digest.String).Result()
 		if err != nil && err != redis.Nil {
 			logs.Error(err)
-			return
+			continue
 		}
 		if err == nil {
 			logs.Warn("重复消费跳过 zset member: %s rank: %v", v.Digest.String, val)
@@ -305,7 +315,7 @@ func SaveCourseNotify(notifies []TNotify) (err error) {
 		err = db.Create(&v).Error
 		if err != nil {
 			logs.Error(err, v)
-			return
+			continue
 		}
 
 		//设置有序集合 发送通知时间为排序依据
@@ -315,7 +325,7 @@ func SaveCourseNotify(notifies []TNotify) (err error) {
 		}).Err()
 		if err != nil {
 			logs.Error(err, v.Digest.String)
-			return
+			continue
 		}
 	}
 	return

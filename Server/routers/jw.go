@@ -4,12 +4,9 @@ import (
 	"GZHU-Pi/env"
 	"GZHU-Pi/pkg"
 	"GZHU-Pi/pkg/gzhu_jw"
-	"GZHU-Pi/services/kafka"
 	"context"
-	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/logs"
-	"github.com/go-redis/redis"
 	"github.com/mo7zayed/reqip"
 	"gopkg.in/guregu/null.v3"
 	"net/http"
@@ -46,7 +43,21 @@ func newJWClient(r *http.Request, username, password string) (client pkg.Jwxt, e
 	}
 
 	if school == "gzhu" {
-		return gzhu_jw.BasicAuthClient(username, password)
+		client, err = gzhu_jw.BasicAuthClient(username, password)
+
+		if err == nil {
+			if uid, err := GetUserID(r); uid > 0 && err == nil {
+				s := fmt.Sprintf(`update t_user set stu_id='%s' where id=%d and length(stu_id)<8`,
+					username, uid)
+				env.GetGorm().Exec(s)
+			}
+		} else {
+			if strings.Contains(err.Error(), "EOF") {
+				err = fmt.Errorf("服务忙，请几分钟后再试")
+			}
+		}
+
+		return
 	}
 
 	if school == "demo" {
@@ -243,23 +254,30 @@ func Course(w http.ResponseWriter, r *http.Request) {
 			firstMonday = gzhu_jw.FirstMonday
 			logs.Warn("use default firstMonday %s", firstMonday)
 		}
-		key := fmt.Sprintf("gzhupi:notify:course:stu:%d_%s_%s", userID, ys, client.GetUsername())
-		_, err := env.RedisCli.Get(key).Result()
-		if err == redis.Nil {
-			err = AddCourseNotify(data.CourseList, firstMonday)
-			if err != nil {
-				return
-			}
-			err = env.RedisCli.Set(key, key, 120*24*time.Hour).Err()
-			if err != nil {
-				logs.Error(err)
-				return
-			}
-		} else if err != nil {
-			logs.Error(err, key)
+		err = AddCourseNotify(data.CourseList, firstMonday)
+		if err != nil {
+			logs.Error(err)
 			return
 		}
-		logs.Debug("key exists, skip add course notify key=%s", key)
+
+		key := fmt.Sprintf("gzhupi:notify:course:stu:%d_%s_%s", userID, ys, client.GetUsername())
+		env.RedisCli.Set(key, key, 120*24*time.Hour)
+		//_, err := env.RedisCli.Get(key).Result()
+		//if err == redis.Nil {
+		//	err = AddCourseNotify(data.CourseList, firstMonday)
+		//	if err != nil {
+		//		return
+		//	}
+		//	err = env.RedisCli.Set(key, key, 120*24*time.Hour).Err()
+		//	if err != nil {
+		//		logs.Error(err)
+		//		return
+		//	}
+		//} else if err != nil {
+		//	logs.Error(err, key)
+		//	return
+		//}
+		//logs.Debug("key exists, skip add course notify key=%s", key)
 	}()
 
 }
@@ -326,7 +344,7 @@ func Grade(w http.ResponseWriter, r *http.Request) {
 			return client.GetAllGrade("", "")
 		},
 	}
-	usingCache, err := env.GetSetCache(gs)
+	_, err := env.GetSetCache(gs)
 	if err != nil {
 		logs.Error(err)
 		Jwxt.Delete(getCacheKey(r, client.GetUsername()))
@@ -342,49 +360,49 @@ func Grade(w http.ResponseWriter, r *http.Request) {
 	go pkg.SetDemoCache("grade", client.GetUsername(), data)
 	Response(w, r, data, http.StatusOK, "request ok")
 
-	if data == nil || data.StuInfo == nil || usingCache {
-		return
-	}
-
-	stuInfo := data.StuInfo
-	var grades []*env.TGrade
-	for _, v := range data.SemList {
-		grades = append(grades, v.GradeList...)
-	}
-	//加入消息队列
-	go func() {
-		if !env.Conf.Kafka.Enabled {
-			return
-		}
-		info, err := json.Marshal(stuInfo)
-		if err != nil {
-			logs.Error(err)
-			return
-		}
-		err = env.Kafka.SendData(&kafka.ProduceData{
-			Topic: env.QueueTopicStuInfo,
-			Data:  info,
-		})
-		if err != nil {
-			logs.Error(err)
-			return
-		}
-
-		//====
-		g, err := json.Marshal(grades)
-		if err != nil {
-			logs.Error(err)
-			return
-		}
-		err = env.Kafka.SendData(&kafka.ProduceData{
-			Topic: env.QueueTopicGrade,
-			Data:  g,
-		})
-		if err != nil {
-			logs.Error(err)
-			return
-		}
-	}()
+	//if data == nil || data.StuInfo == nil || usingCache {
+	//	return
+	//}
+	//
+	//stuInfo := data.StuInfo
+	//var grades []*env.TGrade
+	//for _, v := range data.SemList {
+	//	grades = append(grades, v.GradeList...)
+	//}
+	////加入消息队列
+	//go func() {
+	//	if !env.Conf.Kafka.Enabled {
+	//		return
+	//	}
+	//	info, err := json.Marshal(stuInfo)
+	//	if err != nil {
+	//		logs.Error(err)
+	//		return
+	//	}
+	//	err = env.Kafka.SendData(&kafka.ProduceData{
+	//		Topic: env.QueueTopicStuInfo,
+	//		Data:  info,
+	//	})
+	//	if err != nil {
+	//		logs.Error(err)
+	//		return
+	//	}
+	//
+	//	//====
+	//	g, err := json.Marshal(grades)
+	//	if err != nil {
+	//		logs.Error(err)
+	//		return
+	//	}
+	//	err = env.Kafka.SendData(&kafka.ProduceData{
+	//		Topic: env.QueueTopicGrade,
+	//		Data:  g,
+	//	})
+	//	if err != nil {
+	//		logs.Error(err)
+	//		return
+	//	}
+	//}()
 
 }
 
@@ -474,7 +492,12 @@ func AllCourse(w http.ResponseWriter, r *http.Request) {
 }
 
 func Rank(w http.ResponseWriter, r *http.Request) {
-
+	tip, _ := env.RedisCli.Get("gzhupi:param:tips").Result()
+	if tip == "" {
+		tip = "暂无法提供服务"
+	}
+	Response(w, r, nil, http.StatusInternalServerError, tip)
+	return
 	username := r.URL.Query().Get("username")
 	user, err := VUserByCookies(r)
 	if err != nil {

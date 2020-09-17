@@ -4,8 +4,8 @@ WORKDIR /home
 ADD . /home
 RUN go build --mod=vendor main.go
 
-#FROM zhenshaw/frp
-FROM alpine
+FROM zhenshaw/frp
+#FROM alpine
 
 RUN apk update \
     && apk add tzdata \
