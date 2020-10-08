@@ -173,7 +173,7 @@ func customRouter(r *mux.Router) *mux.Router {
 	//物理实验平台
 	//r.HandleFunc("/exp", test).Methods("POST")
 
-	r.HandleFunc("/jwxt/course2", rt.Recover(rt.Course2)).Methods("POST")
+	//r.HandleFunc("/jwxt/course2", rt.Recover(rt.Course2)).Methods("POST")
 
 	//四六级、普通话考试查询
 	r.HandleFunc("/cet", rt.Recover(rt.GetCet)).Methods("GET")

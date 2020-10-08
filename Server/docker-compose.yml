@@ -28,7 +28,7 @@ services:
       - GZHUPI_RPC_ADDR=gzhu-pi-tesseract-rpc:8080
       - GZHUPI_RPC_TOKEN=
 
-      - GZHUPI_KAFKA_ENABLED=true
+      - GZHUPI_KAFKA_ENABLED=false
       - GZHUPI_KAFKA_BROKER=gzhu-pi-kafka:9092
 
       - GZHUPI_DB_HOST=gzhu-pi-db
@@ -66,7 +66,7 @@ services:
       - gzhupi_pgdb:/var/lib/postgresql/data
 
   rejson:
-    image: redislabs/redisjson2
+    image: redislabs/rejson
     container_name: gzhu-pi-redis
     restart: always
     networks:

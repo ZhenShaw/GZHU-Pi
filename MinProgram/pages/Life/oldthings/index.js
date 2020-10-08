@@ -117,6 +117,7 @@ Page({
   },
 
   search() {
+    if (this.data.queryStr=="") return
     this.setData({
       categoryIndex: -1
     })
@@ -154,7 +155,7 @@ Page({
 
   // 获取商品
   getGoods(loadMore = false) {
-    let taht = this
+    let that = this
     this.setData({
       loading: true
     })

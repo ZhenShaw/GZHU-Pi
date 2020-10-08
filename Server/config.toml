@@ -12,13 +12,6 @@ port = 9000
 prest = true
 init_models = true
 
-[acm]
-enabled = false
-access_key = ""
-secret_key = ""
-namespace_id = ""
-group = ""
-
 [secret]
 jwt = "jwt_secret"
 
@@ -54,6 +47,14 @@ secret = ""
 min_app_id = ""
 min_app_secret = ""
 
+# 远程配置
+[acm]
+enabled = false
+access_key = ""
+secret_key = ""
+namespace_id = ""
+group = ""
+
 # 腾讯云cos
 [cos]
 enabled = false
@@ -70,6 +71,12 @@ api_secret = ""
 [minapp]
 client_id = ""
 client_secret = ""
+
+[taoke]
+enabled = false
+apkey = ""
+tbname = ""
+pid = ""
 
 
 # ================================================

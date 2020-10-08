@@ -126,6 +126,13 @@ type Configure struct {
 		ClientID     string `json:"client_id" remark:"" must:"false"`
 		ClientSecret string `json:"client_secret" remark:"" must:"false"`
 	} `json:"minapp" remark:"知晓云"`
+
+	TaoKe struct {
+		Enabled bool   `json:"enabled" must:"false"`
+		ApKey   string `json:"apkey" remark:"" must:"false"`
+		TbName  string `json:"tbname" remark:"" must:"false"`
+		PID     string `json:"pid" remark:"" must:"false"`
+	}
 }
 
 var Conf = &Configure{}

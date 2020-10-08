@@ -28,7 +28,8 @@ function getSchoolWeek() {
   let startMonday = new Date(wx.$param.school["first_monday"])
   let today = new Date()
 
-  let interval = today - startMonday
+
+  let interval = today.getTime() + 8*3600*1000 - startMonday.getTime()
   let intervalDays = interval / (1000 * 60 * 60 * 24)
 
   if (interval < 0) {

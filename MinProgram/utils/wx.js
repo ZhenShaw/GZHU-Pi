@@ -1,5 +1,5 @@
 // 全局微信变量
-wx.$param = require('param').param
+wx.$param = wx.getStorageSync('app_param') || require('param').param
 
 
 // 封装的wx微信全局方法

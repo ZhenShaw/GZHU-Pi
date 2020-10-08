@@ -2,6 +2,7 @@ package routers
 
 import (
 	"GZHU-Pi/env"
+	"GZHU-Pi/services/taoke"
 	"fmt"
 	"github.com/astaxie/beego/logs"
 	"github.com/silenceper/wechat"
@@ -90,13 +91,17 @@ func wxInit() (ok bool) {
 					//	URL:      "https://baidu.com",
 					//	AppID:    MinAppID,
 					//	PagePath: "pages/Campus/grade/rank",
-					// }, {
-					// 	Type:     "miniprogram",
-					// 	Name:     "学业情况",
-					// 	Key:      "achieve",
-					// 	URL:      "https://baidu.com",
-					// 	AppID:    MinAppID,
-					// 	PagePath: "pages/Campus/grade/achieve",
+				}, {
+					Type:     "miniprogram",
+					Name:     "学业情况",
+					Key:      "achieve",
+					URL:      "https://baidu.com",
+					AppID:    MinAppID,
+					PagePath: "pages/Campus/grade/achieve",
+				}, {
+					Type: "click",
+					Name: "优惠券",
+					Key:  "coupon",
 				},
 			},
 		}, {
@@ -226,6 +231,18 @@ func wxReply(msg message.MixMessage) *message.Reply {
 				mpNav(classNotifyMgrPath, "提醒管理"),
 				mpNav(syncPath, "同步中心"))
 
+		case len(msg.Content) > 10 && strings.Contains(msg.Content, "$") ||
+			strings.Contains(msg.Content, "tb.") ||
+			strings.Contains(msg.Content, "至浏览器") ||
+			strings.Contains(msg.Content, "复制这行"):
+			if env.Conf.TaoKe.Enabled {
+				t := taoke.NewTaoKe()
+				replyStr, _ = t.ConvertToken(msg.Content)
+			}
+
+		case len(msg.Content) > 10 && strings.Contains(msg.Content, "优惠"):
+			replyStr = "打开手机Tao宝，复制商品链接发到到公众号自动查询优hui券"
+
 		default:
 			replyStr = fmt.Sprintf("未识别的关键词！\n有问题可点击 %s 发帖求助，或者点击菜单加【派派微信】咨询！",
 				mpNav(wallPost, "广大墙"))
@@ -284,9 +301,16 @@ func wxReply(msg message.MixMessage) *message.Reply {
 
 			// 点击菜单拉取消息时的事件推送
 		case message.EventClick:
-			//do something
+			if msg.EventKey == "coupon" {
+				replyStr := "打开手机Tao宝，复制商品链接发到到公众号自动查询优hui券"
 
-			// 点击菜单跳转链接时的事件推送
+				return &message.Reply{MsgType: message.MsgTypeText,
+					MsgData: message.NewText(replyStr)}
+			}
+
+		//do something
+
+		// 点击菜单跳转链接时的事件推送
 		case message.EventView:
 			//do something
 
