@@ -1,3 +1,7 @@
 [submodule "MinProgram"]
 	path = MinProgram
 	url = ./MinProgram
+
+[submodule "Server"]
+	path = Server
+	url = ./Server

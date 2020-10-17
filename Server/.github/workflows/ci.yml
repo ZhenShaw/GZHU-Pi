@@ -1,0 +1,40 @@
+name: Docker Image CI
+on:
+  push:
+    branches:
+    - master
+
+env: 
+      docker_username: ${{ secrets.DOCKER_USER }}
+      docker_password: ${{ secrets.DOCKER_PW }}
+
+jobs:
+
+  build-push-image:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Go 1.14
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.14
+      id: go
+
+    - name: Build with go
+      working-directory: .
+      run: go build -v -mod=vendor main.go
+
+    - name: Build with docker
+      working-directory: .
+      run: docker build -t $docker_username/gzhu-pi .
+
+    - name: Login to Docker
+      run: echo "$docker_password" | docker login -u "$docker_username" --password-stdin
+      
+    - name: Push docker image
+      run: docker push $docker_username/gzhu-pi
