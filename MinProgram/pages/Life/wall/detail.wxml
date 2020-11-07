@@ -29,7 +29,9 @@
 			<view class="cu-list menu-avatar shadow -grey">
 				<!-- 头像等 -->
 				<view class="cu-item">
-					<view class="cu-avatar round sub" style="background-image:url({{detail.avatar}});"></view>
+					<view class="cu-avatar round sub" style="background-image:url({{detail.avatar}});background-position:center">
+						<view wx:if="{{detail.gender>0}}" class="cu-tag badge light {{detail.gender==2?'cuIcon-female bg-pink':'cuIcon-male bg-blue'}}"></view>
+					</view>
 					<view class="content flex-sub">
 						<view>{{detail.nickname}}</view>
 						<view class="text-gray text-sm flex justify-between">{{detail.created_at}}</view>
@@ -77,7 +79,7 @@
 	</view>
 
 	<!-- 留言 -->
-	<discuss bind:success="discussSuccess" object_id="{{detail.id}}"></discuss>
+	<discuss bind:success="discussSuccess" object_id="{{detail.id}}" object="t_topic"></discuss>
 
 
 	<!-- 错误 -->

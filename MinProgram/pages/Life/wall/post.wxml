@@ -28,7 +28,7 @@
 		</swiper-item>
 	</swiper>
 
-	<view class="margin-lg" style="margin-bottom:100rpx">
+	<view class="margin-lg" style="margin-bottom:200rpx">
 
 		<!-- 标题 正文 -->
 		<input bindinput="inputBind" data-field="title" value="{{title}}" class="text-xl text-bold" maxlength="30" placeholder="{{tabs[currentTab].placeholder}}"></input>

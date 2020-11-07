@@ -11,13 +11,49 @@ App({
   },
 
   onLaunch: async function (options) {
+    console.log("App启动：", options)
+    let that = this
+
     wx.cloud.init()
     Config.init() //初始化配置文件
     wx.$update() //更新小程序
+    this.initBaaS()
 
+    this.getAuthStatus()
 
-    console.log("App启动：", options)
-    // 初始化知晓云
+    wx.getNetworkType({
+      success(res) {
+        if (res.networkType == "none") {
+          wx.showToast({
+            title: '无网络',
+            icon: 'none'
+          })
+          return
+        }
+        // 1077使用本地配置
+        if (options.scene != 1077) {
+          wx.$syncParam()
+        }
+        that.syncAuth()
+      }
+    })
+
+  },
+
+  onError: function (res) {
+    wx.BaaS.ErrorTracker.track(res)
+    this.aldstat.sendEvent('小程序启动错误', res)
+  },
+
+  onShow: async function (options) {
+    this.aldstat.sendEvent('小程序启动时长', {
+      time: Date.now() - startTime
+    })
+    wx.BaaS.reportTemplateMsgAnalytics(options)
+  },
+
+  // 初始化知晓云
+  initBaaS() {
     wx.BaaS = requirePlugin('sdkPlugin')
     wx.BaaS.wxExtend(wx.login, wx.getUserInfo, wx.requestPayment)
     let ClientID = 'd5add948fe00fbdd6cdf'
@@ -25,39 +61,12 @@ App({
       autoLogin: true
     })
     wx.BaaS.ErrorTracker.enable()
-
-    // 1077使用本地配置
-    if (options.scene != 1077) {
-      wx.$syncParam()
-    }
-
-    if (options.scene == 1037 && JSON.stringify(options.referrerInfo) != "{}") {
-      this.getAuthStatus(options.referrerInfo.extraData)
-    } else {
-      this.getAuthStatus()
-    }
-
-    this.syncAuth()
   },
 
-  onError: function (res) {
-    wx.BaaS.ErrorTracker.track(res)
-
-    this.aldstat.sendEvent('小程序启动错误', res)
-  },
-
-  onShow: function (options) {
-    this.aldstat.sendEvent('小程序启动时长', {
-      time: Date.now() - startTime
-    })
-
-    wx.BaaS.reportTemplateMsgAnalytics(options)
-  },
 
   // 获取认证状态
-  getAuthStatus(data = {}) {
+  getAuthStatus() {
     let that = this
-
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -83,24 +92,19 @@ App({
             that.globalData.bindStatus = true
             that.globalData.account = res.data
           },
-          fail: function (res) {
-
-          }
+          fail: function (res) {}
         })
       }
     })
   },
 
-
-
+  // 三天同步一次认证信息
   syncAuth() {
-    // 三天同步一下认证
     let last_sync_auth = wx.getStorageSync('last_sync_auth')
     if (!last_sync_auth || new Date().getTime() - last_sync_auth >= 1000 * 3600 * 72) {
       wx.$authSync()
       wx.setStorageSync('last_sync_auth', new Date().getTime())
     }
-  }
+  },
 
 })
-

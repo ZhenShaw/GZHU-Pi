@@ -28,6 +28,11 @@
   margin: 0 auto;
 }
 
+.sub{
+  width: 70rpx;
+  height: 70rpx;
+}
+
 .cu-btn {
   border: 0rpx;
   display: inline-flex;

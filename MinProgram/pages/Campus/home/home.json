@@ -9,6 +9,7 @@
     "drawer-modal": "/pages/Components/drawer-modal",
     "tips": "/pages/Components/tips",
     "nav": "/pages/Components/home-units/nav",
-    "user-modal": "/components/user-modal/user-modal"
+    "user-modal": "/components/user-modal/user-modal",
+    "hot-topic": "/components/hot-topic/hot-topic"
   }
 }

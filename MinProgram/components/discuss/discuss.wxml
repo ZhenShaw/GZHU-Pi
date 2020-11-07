@@ -3,7 +3,9 @@
 
 	<view wx:for="{{comments}}" wx:key="index" class="comment">
 		<view bindtap="atSomebody" data-item="{{item}}" style="flex:1">
-			<image class="avatar" src="{{item.avatar}}"></image>
+			<view class="cu-avatar round sub" style="background-image:url({{item.avatar}});background-position:center">
+				<view wx:if="{{item.gender>0}}" class="cu-tag badge light {{item.gender==2?'cuIcon-female bg-pink':'cuIcon-male bg-blue'}}"></view>
+			</view>
 		</view>
 		<view bindtap="deleteComment" style="flex:6" data-item="{{item}}">
 			<view class="c-info">

@@ -1,3 +1,6 @@
+<import src="wall.skeleton.wxml"/>
+<template is="skeleton" wx-if="{{loading}}" />
+
 <navBar title="{{navTitle}}" navColor="rgba(255, 255, 255, 0.8)" hideBackBtn hideTitle="{{false}}">
 	<view class="flex justify-between align-center" style="width:100%">
 		<open-data type="userAvatarUrl" class="avatar"></open-data>
@@ -40,12 +43,9 @@
 		</view>
 	</view>
 
-	<view class="margin-bottom-sm" style="height:30rpx;background:rgb(240,240,240)"></view>
-
 	<!-- 列表 -->
-	<view wx:if="{{dataSet.length>0}}">
-		<brickflow wx:if="{{brick_option.columns==1}}" _tplName="wall" dataSet="{{dataSet}}" option="{{brick_option}}" bind:tapCard="tapCard" bind:tapLike="tapLike" bind:tapUser="tapUser" bind:onCardExpanded="handleExpand" />
-		<brickflow wx:else _tplName="wall" dataSet="{{dataSet}}" option="{{brick_option}}" bind:tapCard="tapCard" bind:tapLike="tapLike" bind:tapUser="tapUser" bind:onCardExpanded="handleExpand" />
+	<view wx:if="{{dataSet.length>0}}" style="padding-top:30rpx;background:rgb(240,240,240)">
+		<brickflow _tplName="wall" dataSet="{{dataSet}}" option="{{brick_option}}" bind:tapCard="tapCard" bind:tapLike="tapLike" bind:tapUser="tapUser"/>
 	</view>
 
 	<view class="cu-load" wx:if="{{dataSet.length>0 && loadDone}}">

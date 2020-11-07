@@ -30,7 +30,7 @@ Component({
    */
   methods: {
 
-    modalConfirm(){
+    modalConfirm() {
       wx.$navTo(this.data.action.modal.nav_to)
       this.setData({
         "action": {}
@@ -42,12 +42,9 @@ Component({
         "action": {}
       })
       wx.$navTo(e)
-    }
+    },
 
-  },
-
-  lifetimes: {
-    attached: function () {
+    getData() {
       wx.$ajax({
           url: wx.$param.server["prest"] + "/param?type=modal",
           method: "get",
@@ -62,6 +59,19 @@ Component({
             action: res.data
           })
         })
+    }
+
+  },
+
+  lifetimes: {
+    attached: function () {
+      let that = this
+      wx.getNetworkType({
+        success(res) {
+          if (res.networkType == "none") return
+          that.getData()
+        }
+      })
     }
   },
 })

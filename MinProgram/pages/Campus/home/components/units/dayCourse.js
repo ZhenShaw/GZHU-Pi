@@ -32,6 +32,10 @@ Component({
   },
   pageLifetimes: {
     show() {
+      this.setData({
+        week: utils.getSchoolWeek(), //周数
+        schoolWeek: utils.getSchoolWeek(), //校历周
+      })
       // 初次onshow不执行
       if (showTimes) {
         this.setData({

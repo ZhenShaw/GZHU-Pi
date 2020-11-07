@@ -135,18 +135,18 @@ Component({
             item._height = rawData[item['id']]._height
             item._expandStatus = rawData[item['id']]._expandStatus
             item._background = rawData[item['id']]._background
-            item._dateTime = rawData[item['id']]._dateTime
             item._rendered = rawData[item['id']]._rendered
           } else {
             item._background = item.backgroundColor || backgroundColor || this._getRandomColor()
-            item._dateTime = item.time ? utils.relativeTime(item.time) : ''
-            item.created_at = item.created_at ? utils.relativeTime(item.created_at) : ''
-            item.updated_at = item.updated_at ? utils.relativeTime(item.updated_at) : ''
-            item.refresh_time = item.refresh_time ? utils.relativeTime(item.refresh_time) : ''
             item._rendered = false
             item._height = DEFAULT_HEIGHT
             item._expandStatus = item.expandStatus ? item.expandStatus : defaultExpandStatus // 默认展开状态
           }
+          item._dateTime = item.time ? utils.relativeTime(item.time) : ''
+          item.created_at = item.created_at ? utils.relativeTime(item.created_at) : ''
+          item.updated_at = item.updated_at ? utils.relativeTime(item.updated_at) : ''
+          item.refresh_time = item.refresh_time ? utils.relativeTime(item.refresh_time) : ''
+
 
           if (item.likedCount) {
             item.likedCount = item.likedCount > 99 ? '99+' : item.likedCount

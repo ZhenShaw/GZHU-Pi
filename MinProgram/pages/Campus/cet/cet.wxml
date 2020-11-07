@@ -1,0 +1,77 @@
+<navBar title="四六级查询"></navBar>
+
+<view class="flex justify-center captchaWraper" wx:if="{{isCaptcha}}">
+  <view class="flex flex-direction align-center justify-center padding-sm cetCard captcha">
+    <view hover-class="imgHover" class="flex flex-direction align-center justify-center margin img" bind:tap="getCaptcha">
+        <image src="{{captchaimg}}" />
+    </view>
+    <view class="flex align-center justify-center margin-xs">
+      <view class="padding-xs margin-xs inputWraper">
+        <input value="{{captcha}}" type="text" placeholder="请输入验证码" bindinput="bindKeyInput" focus="{{true}}"/>
+      </view>
+      <view hover-class="hover" class="flex align-center justify-center padding-xs submitbtn" bind:tap="getScore">
+        <view class="cuIcon-check" ></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="flex flex-direction align-center cetBlackground">
+
+  <!-- ID Card -->
+  <view class="flex flex-direction align-center justify-center cetCard" style="height:300rpx;margin-top:10%">
+    <view class="cuIcon-refresh margin cetRefresh" bind:tap="getCaptcha"></view>
+    <!-- avatar & name -->
+    <view class="flex justify-start align-center padding-left-xl margin-tb-sm" style="width:100%">
+        <open-data class="cu-avatar lg round margin-lr avatar" type="userAvatarUrl"></open-data>
+        <view class="text-center text-bold text-xxl margin-lr" style="margin-letf:50rpx">{{name}}</view>
+    </view>
+    <view class="line" />
+    <!-- test_id & school -->
+    <view class="flex align-center justify-around" style="width:100%">
+      <view class="flex align-center margin-sm">
+        <view class="cuIcon-profile margin-xs" />
+        <view style="margin-top:5rpx;">{{scoreList[curCard].test_id}}</view>
+      </view>
+      <view class="flex align-center margin-sm">
+         <view class="cuIcon-home margin-xs" />
+         <view >{{scoreList[curCard].school}}</view>
+      </view>
+    </view>
+  </view>
+
+  <swiper class="card-swiper round-dot cetSwiper" indicator-dots="true" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+    <swiper-item wx:for="{{scoreList}}" wx:key="index" class="flex justify-center {{curCard==index?'cur':''}}">
+      <!-- Score Card -->
+      <view class="flex flex-direction align-center margin-top cetCard" style="width:95%">
+        <view class="flex flex-direction justify-between" style="height:85%">
+          <view class="text-xl text-bold margin-top-lg">{{subjectName}}</view>
+          <view class="text-bold margin cetScore" style="margin-top:0;">{{item.total}}</view>
+
+          <!-- Score Item -->
+          <view class="flex align-center justify-center" style="width:100%">
+            <view class="flex flex-direction align-center justify-center">
+              <view class="cuIcon-all margin" style="font-size:80rpx;"></view>
+              <view class="text-sm margin-xs">听力</view>
+              <view class="text-xxl">{{item.listening}}</view>
+            </view>
+            <view class="scoreLine"></view>
+            <view class="flex flex-direction align-center justify-center">
+              <view class="cuIcon-read margin" style="font-size:80rpx;"></view>
+              <view class="text-sm margin-xs">阅读</view>
+              <view class="text-xxl">{{item.reading}}</view>
+            </view>
+            <view class="scoreLine"></view>
+            <view class="flex flex-direction align-center justify-center">
+              <view class="cuIcon-write margin" style="font-size:80rpx;"></view>
+              <view class="text-sm margin-xs">写作</view>
+              <view class="text-xxl">{{item.writing}}</view>
+            </view>
+          </view>
+        </view>
+        <!-- Test Date -->
+        <view class="flex justify-end text-df margin testDate">考试时间：{{item.exam_date}}</view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>

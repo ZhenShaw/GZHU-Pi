@@ -42,3 +42,9 @@ picker, .selection {
   margin: 50rpx;
   color: grey;
 }
+
+.class-item{
+  border: 1rpx solid rgb(223, 222, 222);
+  border-radius: 20rpx;
+  padding: 8rpx;
+}

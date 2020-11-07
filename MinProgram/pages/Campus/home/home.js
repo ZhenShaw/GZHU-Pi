@@ -30,16 +30,6 @@ Page({
     })
   },
 
-  // 更新用户信息
-  userInfoHandler(data) {
-    wx.BaaS.auth.loginWithWechat(data, {
-      createUser: true,
-      syncUserProfile: "overwrite"
-    }).then(user => {
-      console.log(user)
-    })
-  },
-
   updateCheck() {
     let version = Config.get("version")
     if (version < Config.config['version']) {
@@ -50,10 +40,6 @@ Page({
     }
   },
 
-  formSubmit(e) {
-    console.log(e)
-    wx.BaaS.wxReportTicket(e.detail.formId)
-  },
   // 切换课表模式，点解悬浮图标
   switchModel() {
     if (this.data.schedule) {

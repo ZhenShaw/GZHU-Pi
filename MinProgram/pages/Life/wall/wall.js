@@ -13,7 +13,7 @@ Page({
     dataSet: [],
     brick_option: {
       backgroundColor: "white",
-      forceRepaint: true,
+      forceRepaint: false,
       imageFillMode: 'aspectFill',
       columns: 2,
     },
@@ -260,7 +260,7 @@ Page({
       _page: this.data.page,
       _page_size: this.data.pageSize,
       type: this.data.type ? this.data.type : "$in.日常,情墙,悄悄话",
-      _order: "-created_at",
+      _order: "-order_time",
     }
     query = wx.$objectToQuery(query)
 

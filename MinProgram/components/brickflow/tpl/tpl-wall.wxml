@@ -43,15 +43,16 @@
 								<view class="cu-tag radius line-red" style="height:35rpx">{{item}}</view>
 							</view>
 						</view>
-						<view wx:if="{{content_list[item].star_list}}" class="cu-avatar-group">
-							<view wx:for="{{content_list[item].star_list}}" wx:if="{{index<10}}" wx:key="index" class="cu-avatar round sm" style="background-image:url({{item.avatar}});"></view>
+						<view wx:if="{{content_list[item].claim_list || content_list[item].star_list}}" class="cu-avatar-group">
+							<view wx:for="{{content_list[item].claim_list || content_list[item].star_list}}" wx:if="{{index<10}}" wx:key="index" class="cu-avatar round sm" style="background-image:url({{item.avatar}});"></view>
 						</view>
 					</view>
 				</view>
 			</view>
 
 			<!-- 悄悄话 单列 -->
-			<view wx:if="{{columns==1 && content_list[item].type=='悄悄话'}}" class="oldthings">
+			<view wx:if="{{columns==1 && content_list[item].type!='情墙'}}" class="oldthings">
+				<!-- <view wx:if="{{columns==1 && content_list[item].type=='悄悄话'}}" class="oldthings"></view> -->
 				<view class="base-info">
 					<image class="avatar" src="{{content_list[item].avatar}}" mode="widthFix" catchtap="{{content_list[item].created_by ? 'onUserAreaTap' : ''}}" data-user-id="{{content_list[item].created_by}}"></image>
 					<view class="text-lg text-orange margin-left-xs">
@@ -96,10 +97,10 @@
 					<view class="flex align-center justify-between margin-tb-xs " wx:if="{{content_list[item].avatar}} ">
 						<view class="flex align-center ">
 							<image class="cu-avatar round sm margin-lr-xs " src="{{content_list[item].avatar}} " mode="widthFix " catchtap="{{content_list[item].created_by? 'onUserAreaTap': ''}} " data-user-id="{{content_list[item].created_by}} "></image>
-							<view class="text-sm ">{{content_list[item].nickname}}</view>
+							<view class="text-sm text-cut" style="width:165rpx">{{content_list[item].nickname}}</view>
 						</view>
 						<view class="text-gray ">
-							<text class="cuIcon-attentionfill margin-xs "></text>{{content_list[item].viewed}}
+							<text class="cuIcon-attentionfill margin-xs"></text>{{content_list[item].viewed}}
 						</view>
 					</view>
 				</view>

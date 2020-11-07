@@ -11,20 +11,6 @@ Page({
     semList: wx.$param.school["sem_list"],
     semIndex: wx.$param.school["sem_list"].indexOf(wx.$param.school["year_sem"]), //默认显示的学期索引
 
-    yearIndex: 2,
-    collegeIndex: 5,
-    majorIndex: 1,
-    classIndex: 0,
-    majors: [],
-    years: ["2022","2021","2020","2019", "2018", "2017", "2016"],
-    colleges: ["地理科学学院", "法学院", "公共管理学院", "环境科学与工程学院",
-      "化学化工学院", "计算机科学与网络工程学院", "机械与电气工程学院", "教育学院", "建筑与城市规划学院",
-      "旅游学院", "美术与设计学院", "人文学院", "生命科学学院", "数学与信息科学学院",
-      "土木工程学院", "体育学院", "外国语学院", "电子与通信工程学院", "物理与材料科学学院", "新闻与传播学院",
-      "音乐舞蹈学院", "国际教育学院", "马克思主义学院", "经济与统计学院",
-      "工商管理学院", "卫斯理安学院", "创新创业学院",
-      "教师培训学院继续教育学院", "第二专业"
-    ]
   },
 
   onLoad: function (options) {
@@ -39,9 +25,9 @@ Page({
       title: title[options.id]
     })
 
-    this.getClassList()
-    // this.rewardAD()
     this.insertAD()
+
+    this.search_class("计算机")
   },
 
   onShareAppMessage: function () {
@@ -82,40 +68,9 @@ Page({
     }
   },
 
-
-  // rewardAD() {
-  //   if (wx.createRewardedVideoAd) {
-  //     rewardedVideoAd = wx.createRewardedVideoAd({
-  //       adUnitId: 'adunit-bdbbdebf506ba881'
-  //     })
-  //     rewardedVideoAd.onLoad(() => {
-  //       console.log('onLoad event emit')
-  //     })
-  //     rewardedVideoAd.onError((err) => {
-  //       console.log('onError event emit', err)
-  //     })
-  //     rewardedVideoAd.onClose((res) => {
-  //       console.log('onClose event emit', res)
-  //       if (res && res.isEnded) {
-  //         console.log("正常播放结束")
-  //       } else {
-  //         console.log("播放中途退出")
-  //       }
-  //     })
-  //   }
-  // },
-
   nav() {
-    // if (rewardedVideoAd) {
-    //   rewardedVideoAd.show().catch(() => {
-    //     // 失败重试
-    //     rewardedVideoAd.load()
-    //       .then(() => rewardedVideoAd.show())
-    //       .catch(err => {
-    //         console.log('激励视频 广告显示失败',err)
-    //       })
-    //   })
-    // }
+
+    if (!this.data.target) return
 
     let str = this.data.semList[this.data.semIndex]
     let sp = str.split("-")
@@ -140,77 +95,69 @@ Page({
 
   },
 
-
-  pickerChange(e) {
-    let id = e.currentTarget.id
-    let value = Number(e.detail.value)
-    if (id == "year") {
-      this.setData({
-        yearIndex: value,
-        majorIndex: 0
-      })
-      this.getClassList(this.data.colleges[this.data.collegeIndex], this.data.years[value])
-    }
-    if (id == "college") {
-      this.setData({
-        collegeIndex: value,
-        majorIndex: 0
-      })
-      this.getClassList(this.data.colleges[value], this.data.years[this.data.yearIndex])
-    }
-    if (id == "major") {
-      this.setData({
-        majorIndex: value
-      })
-      this.handle(this.data.list)
-    }
-    if (id == "class")
-      this.setData({
-        classIndex: value,
-        target: this.data.classes[value]
-      })
+  search() {
+    this.search_class(this.keyword)
   },
 
-  // 获取未处理的班级信息
-  getClassList(college = "计算机", year = this.data.years[this.data.yearIndex]) {
-    let that = this
+  search_class(keyword) {
+    if (!keyword) {
+      this.setData({
+        class_list: []
+      })
+      return
+    }
+
     let Obj = new wx.BaaS.TableObject("college_major_class")
-    let query = new wx.BaaS.Query()
-    query.contains('jgmc', college) //学院
-    query.contains('njmc', year) //年级
 
-    Obj.setQuery(query).find().then(res => {
-      that.data.list = res.data.objects
-      that.handle(res.data.objects)
+    // 班级
+    let query1 = new wx.BaaS.Query()
+    query1.contains('bj', keyword)
+    // 专业
+    let query2 = new wx.BaaS.Query()
+    query2.contains('zymc', keyword)
+    // 学院
+    let query3 = new wx.BaaS.Query()
+    query3.contains('jgmc', keyword)
+
+    let orQuery = wx.BaaS.Query.or(query1, query2, query3)
+
+    Obj.setQuery(orQuery).orderBy('-njmc').limit(10).find().then(res => {
+      let list = res.data.objects
+      this.setData({
+        class_list: list
+      })
+      if (list.length > 0) {
+        this.setData({
+          target: list[0].bj
+        })
+      }
     })
   },
 
-  // 提取专业班级列表
-  handle(list) {
+  // true 说明在防抖期间，应该停止执行
+  isDebounce(timeout = 2000) {
+    let that = this
+    if (this.data.debounce) {
+      console.log("触发防抖")
+      return true
+    }
+    this.data.debounce = true
+    setTimeout(() => {
+      that.data.debounce = false
+    }, timeout)
+    return false
+  },
 
-    let majors = []
-    let classes = []
-    list.forEach(item => {
-      if (majors.indexOf(item.zymc) == -1)
-        majors.push(item.zymc)
-    })
-    this.data.majors = majors
-
-    let major = majors[this.data.majorIndex]
-
-    list.forEach(item => {
-      if (major == item.zymc && classes.indexOf(item.bj) == -1)
-        classes.push(item.bj)
-    })
-
+  searchInput(e) {
+    this.keyword = e.detail.value
+    if (!this.isDebounce(300)) {
+      this.search_class(this.keyword)
+    }
+  },
+  selectClass(e) {
     this.setData({
-      classIndex: 0,
-      majors: majors,
-      classes: classes,
-      target: classes[0]
+      target: e.currentTarget.dataset.target
     })
-
-  },
-
+  }
 
 })

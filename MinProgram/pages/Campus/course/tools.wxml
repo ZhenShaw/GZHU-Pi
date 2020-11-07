@@ -19,7 +19,8 @@
 <view wx:if="{{id=='eval'}}">
 
   <view style='margin-top:300rpx;display:flex;justify-content:center;align-item:center'>
-    <image style='width:250rpx' mode='widthFix' src='https://shaw-1256261760.cos.ap-guangzhou.myqcloud.com/gzhu-pi/images/icon/rili.png'></image>
+    <image style='width:250rpx' mode='widthFix'
+      src='https://shaw-1256261760.cos.ap-guangzhou.myqcloud.com/gzhu-pi/images/icon/rili.png'></image>
   </view>
 
   <view style='text-align:center;margin:50rpx'>
@@ -31,46 +32,35 @@
 
 <!-- 任意门 -->
 <view wx:if="{{id=='query'}}" class='query'>
-  <view class='part'>
-    <view class='title'>年级</view>
-    <picker id="year" range='{{years}}' bindchange="pickerChange" value="{{yearIndex}}">
-      <view>{{years[yearIndex]}}级</view>
-    </picker>
-  </view>
-  <view class='part'>
-    <view class='title'>学院</view>
 
-    <picker id="college" range='{{colleges}}' bindchange="pickerChange" value="{{collegeIndex}}">
-      <view>{{colleges[collegeIndex]}}</view>
-    </picker>
-  </view>
-
-  <view class='part'>
-    <view class='title'>专业</view>
-    <picker id="major" range='{{majors}}' bindchange="pickerChange" value="{{majorIndex}}">
-      <view>{{majors[majorIndex]}}</view>
-    </picker>
+  <view class="box">
+    <view class="cu-bar search bg-white">
+      <view class="search-form round" style="padding:5rpx">
+        <text class="cuIcon-search"></text>
+        <input type="text" placeholder="班级、专业、学院" confirm-type="search" bindinput="searchInput"></input>
+      </view>
+      <view class="action">
+        <button class="cu-btn bg-green round" bindtap="search">搜索</button>
+      </view>
+    </view>
   </view>
 
-  <view class='part'>
-    <view class='title'>班级</view>
-    <picker id='class' range='{{classes}}' bindchange="pickerChange" value="{{classIndex}}">
-      <view>{{classes[classIndex]}}</view>
-    </picker>
-  </view>
-
-  <view class='part'>
+  <view class='part margin'>
     <view class='title'>学期</view>
     <view class='selection' bindtap='actionSheet' id="sem">{{semList[semIndex]}} </view>
   </view>
 
-  <button class='gen-btn' bindtap='nav' type='primary'>生成 {{target}} 课表</button>
+  <button class='gen-btn' bindtap='nav' type='primary'>生成 <text class="text-yellow">{{target}}</text> 课表</button>
 
-  <view class='q-tip'>
-    <view style='font-weight:bold;margin:10rpx 0'>工具用途：</view>
-    <view> *支持生成任意年级专业的班级课表</view>
-    <view> *一键查看 她/他/Ta 的专业课表~</view>
-    <view> *更多用处等你发现~~~~</view>
+  <view class="margin">
+    <view wx:for="{{class_list}}" wx:key="index" class="class-item margin-tb" bindtap="selectClass"
+      data-target="{{item.bj}}">
+      <view class="text-grey text-lg">{{item.jgmc}}</view>
+      <view>
+        <text class="text-grey text-lg">{{item.zymc}} </text>
+        <text class="text-green text-blod"> {{item.bj}}</text>
+      </view>
+    </view>
   </view>
 
 </view>

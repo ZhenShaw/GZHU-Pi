@@ -12,13 +12,15 @@
     <form bindsubmit='formSubmit' report-submit='{{true}}'>
       <view class="item">
         <view class='title'>学 号</view>
-        <input name='username' type='number' maxlength='10' value='{{exp_account.username}}' placeholder="请输入学号"></input>
+        <input name='username' type='number' maxlength='10' value='{{exp_account.username}}'
+          placeholder="请输入学号"></input>
       </view>
       <view class="item">
         <view class='title'>密 码</view>
         <input name='password' type='password' value='{{exp_account.password}}' placeholder="实验平台密码"></input>
       </view>
       <button formType="submit" type='primary' id='exp' loading="{{loading}}">{{exp_btn}}</button>
+      <button bindtap="navTo" data-url="/pages/Campus/exp/exp" class="bg-yellow">查看实验</button>
     </form>
     <view class='tips'>
       <view>*密码一般和教务系统的不同</view>
@@ -33,8 +35,8 @@
     <form bindsubmit='formSubmit' report-submit='{{true}}'>
       <view class="item">
         <view class='title'>学 期</view>
-        <picker name='sem' bindchange="pickerChange" value="{{pickerIndex}}" range="{{sem_list}}">
-          <view class="picker">{{sem_list[pickerIndex]}}</view>
+        <picker name='sem' id="sem" bindchange="pickerChange" value="{{picker_index}}" range="{{sem_list}}">
+          <view class="picker text-green">{{sem_list[picker_index]}}</view>
         </picker>
       </view>
       <view class="item">
@@ -46,7 +48,7 @@
         <input name='password' type='password' value='{{account.password}}' placeholder="教务系统密码"></input>
       </view>
       <button id='kb' formType="submit" type='primary' loading="{{loading}}">{{kb_btn}}</button>
-      <view style='text-align:center;font-size: 80%;color: rgb(68, 68, 68)'>上次同步：{{update_time}}</view>
+      <view wx:if="{{!!update_time}}" style='text-align:center;font-size: 80%;color: rgb(68, 68, 68)'>上次同步：{{update_time}}</view>
     </form>
     <view class='tips'>
       <view>*00:00~07:00不可同步</view>
@@ -57,14 +59,20 @@
   <swiper-item>
     <form bindsubmit='formSubmit' report-submit='{{true}}'>
       <view class="item">
-        <view class='title'>准考证</view>
-        <input name="cet" type='number' maxlength='15' value='{{cet}}' placeholder="请输入 CET4/6 考号"></input>
+        <view class='title'>考 试</view>
+        <picker name='exam' id="exam" bindchange="pickerChange" value="{{exam_picker_index}}" range="{{exam_list}}">
+          <view class="picker text-green">{{exam_list[exam_picker_index]}}</view>
+        </picker>
       </view>
-      <button id='cet' formType="submit" type='primary'>预存准考证</button>
+      <view class="item">
+        <view class='title'>姓 名</view>
+        <input name="name" type="text" maxlength="15" value="{{cet.name}}" placeholder="请输入姓名"></input>
+      </view>
+      <view class="item">
+        <view class='title'>身份证</view>
+        <input name="idc" type="idcard" maxlength="18" value="{{cet.idc}}" placeholder="请输入身份证号"></input>
+      </view>
+      <button id='toCet' formType="submit" type='primary'>查询CET成绩</button>
     </form>
-    <view class='tips'>
-      <view>*信息仅存在本机缓存，删除应用将消失</view>
-      <!-- <view>*小程序后续会加入CET4/6等考试的查询</view> -->
-    </view>
   </swiper-item>
 </swiper>

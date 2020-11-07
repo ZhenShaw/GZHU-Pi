@@ -47,7 +47,7 @@ wx.$ajax = function (option) {
           // if (res.statusCode == 401) wx.removeStorageSync('gzhupi_cookie')
           let msg = res.data.error
           msg = msg ? msg : res.errMsg
-          msg = String(res.statusCode) + " 错误"
+          msg = String(res.statusCode) + " 错误" + JSON.stringify(msg)
           reject({
             when: "http_status_error",
             error: msg,
@@ -64,7 +64,7 @@ wx.$ajax = function (option) {
 
         // 缓存cookies
         if (res.header["Set-Cookie"] != undefined && res.header["Set-Cookie"] != "") {
-          wx.setStorageSync("gzhupi_cookie", res.header["Set-Cookie"]);
+          updateLocalCookie(res.header["Set-Cookie"])
         }
 
         // 自定义响应协议(只返回data)
@@ -114,6 +114,31 @@ wx.$ajax = function (option) {
       }
     })
   })
+}
+
+// 读取本地cookie，与新的cookie合并
+function updateLocalCookie(new_cookie) {
+  if (!new_cookie) return
+
+  let cookies = []
+  let cookie = wx.getStorageSync("gzhupi_cookie")
+  if (cookie) {
+    cookies = cookie.split(";")
+  }
+  cookies = cookies.concat(new_cookie.split(";"))
+
+  let set = {}
+  for (let i in cookies) {
+    let kv = cookies[i].split("=")
+    if (kv.length == 2) {
+      set[kv[0]] = kv[1]
+    }
+  }
+  let cookie_str = ""
+  for (let key in set) {
+    cookie_str = cookie_str + `${key}=${set[key]};`
+  }
+  wx.setStorageSync("gzhupi_cookie", cookie_str);
 }
 
 /**
@@ -170,7 +195,7 @@ wx.$navTo = function (e, args) {
         wx.switchTab({
           url: e + args_str,
           fail: err => {
-            console.err(err)
+            console.error(err)
           }
         })
       }
@@ -195,8 +220,8 @@ wx.$objectToQuery = function (obj = {}) {
   for (let i in obj) {
 
     if (!obj[i]) continue
-
-    args_str.push(i + '=' + encodeURIComponent(obj[i]))
+    let val = typeof (obj[i]) == "string" ? obj[i] : encodeURIComponent(obj[i])
+    args_str.push(i + '=' + val)
   }
   let query = '?' + args_str.join("&")
   return query
@@ -433,7 +458,7 @@ wx.$syncParam = async function () {
       // verify模式下 username有效且不是测试账号放行
       let account = wx.getStorageSync("account")
       if (res.data.data.mode == "verify") {
-        if (!!account.username && account.username != "20200504" && account.username != "20180829") {
+        if (!!account.username && account.username.length == 10) {
           res.data.data.mode = "prod"
         }
       }

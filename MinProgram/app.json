@@ -11,7 +11,7 @@
     "pages/Campus/grade/grade",
     "pages/Campus/tools/calendar",
     "pages/Setting/mine/mine",
-    "pages/Campus/evaluation/evaluation",
+    "pages/Campus/evaluation/detail",
     "pages/Campus/gzhu/index",
     "pages/Campus/tools/exam",
     "pages/Campus/course/schedule",
@@ -34,7 +34,9 @@
     "pages/Life/wall/detail",
     "pages/Setting/webview/webview",
     "pages/Setting/login/auth",
-    "pages/Campus/tools/notice"
+    "pages/Campus/tools/notice",
+    "pages/Campus/evaluation/index",
+    "pages/Campus/cet/cet"
   ],
   "subpackages": [
     {
@@ -81,11 +83,11 @@
   },
   "plugins": {
     "sdkPlugin": {
-      "version": "3.14.3",
+      "version": "3.14.8",
       "provider": "wxc6b86e382a1e3294"
     },
     "tencentvideo": {
-      "version": "1.3.13",
+      "version": "1.3.16",
       "provider": "wxa75efa648b60994b"
     }
   },

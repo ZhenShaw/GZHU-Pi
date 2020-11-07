@@ -8,11 +8,7 @@
 
 <!-- 悬浮图标 -->
 <view>
-	<form bindsubmit='formSubmit' report-submit='{{true}}'>
-		<button formType="submit" open-type="getUserInfo" bindgetuserinfo='userInfoHandler'>
-			<image bindtap='switchModel' class='float-icon' mode='aspectFit' src='https://shaw-1256261760.cos.ap-guangzhou.myqcloud.com/gzhu-pi/images/icon/gzhu-classtable.png'></image>
-		</button>
-	</form>
+	<image bindtap='switchModel' class='float-icon' mode='aspectFit' src='https://shaw-1256261760.cos.ap-guangzhou.myqcloud.com/gzhu-pi/images/icon/gzhu-classtable.png'></image>
 	<button open-type="share">
 		<image class='share-icon' mode='aspectFit' src='https://shaw-1256261760.cos.ap-guangzhou.myqcloud.com/gzhu-pi/images/icon/plane.png'></image>
 	</button>
@@ -34,7 +30,10 @@
 	<day todayCourse="{{todayCourse}}"></day>
 	<view class='divide-line'></view>
 	<!-- 成绩概览 -->
-	<grade></grade>
+	<!-- <grade></grade>
+	<view class='divide-line'></view> -->
+
+	<hot-topic></hot-topic>
 	<view class='divide-line'></view>
 
 </view>

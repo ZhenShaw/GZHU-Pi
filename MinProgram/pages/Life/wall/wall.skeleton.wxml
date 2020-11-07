@@ -1,0 +1,180 @@
+<!--
+此文件为开发者工具生成，生成时间: 10/30/2020, 3:27:36 PM 
+使用方法：
+在 /Users/Shaw/Workspace/GZHU-Pi/gzhupi-miniapp/pages/Life/wall/wall.wxml 引入模板
+
+```
+<import src="wall.skeleton.wxml"/>
+<template is="skeleton" wx-if="{{loading}}" />
+```
+
+在 /Users/Shaw/Workspace/GZHU-Pi/gzhupi-miniapp/pages/Life/wall/wall.wxss 中引入样式
+```
+@import "./wall.skeleton.wxss";
+```
+
+更多详细信息可以参考文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html
+-->
+<template name="skeleton">
+  <view class="sk-container">
+    <view is="pages/Components/navBar">
+      <view class="navBar--navBar" style="height:65px;background-color:rgba(255, 255, 255, 0.8)">
+        <view class="navBar--title-bar" style="height:40px;margin-top:20px">
+          <view class="navBar--title">
+            <view class="navBar--text-cut sk-transparent sk-text-14-2857-281 sk-text" style="color:#333;opacity:1;max-width:303px">广大墙</view>
+          </view>
+        </view>
+      </view>
+      <view style="height:65px"></view>
+    </view>
+    <image class="post-icon sk-image" mode="widthFix" style="height: 55px;"></image>
+    <view class="box">
+      <view class="cu-bar search bg-white">
+        <view class="search-form round" style="padding:2px">
+          <text class="cuIcon-search sk-pseudo sk-pseudo-circle"></text>
+          <view placeholder="标题、内容、标签、昵称" type="text" value="true" class="sk-image"></view>
+        </view>
+        <view class="action">
+          <button class="cu-btn bg-green round sk-transparent sk-button sk-pseudo sk-pseudo-circle">搜索</button>
+        </view>
+      </view>
+    </view>
+    <view class="cu-list grid col-2 no-border">
+      <view class="cu-item align-center sk-pseudo sk-pseudo-circle" id="0">
+        <view class="nav-func shadow -grey">
+          <image mode="widthFix" style="width: 100%; height: 93.7679px;" class="sk-image"></image>
+        </view>
+      </view>
+      <view class="cu-item align-center sk-pseudo sk-pseudo-circle" id="1">
+        <view class="nav-func shadow -grey">
+          <image mode="widthFix" style="width: 100%; height: 103.972px;" class="sk-image"></image>
+        </view>
+      </view>
+      <view class="cu-item align-center sk-pseudo sk-pseudo-circle" id="2">
+        <view class="nav-func shadow -grey">
+          <image mode="widthFix" style="width: 100%; height: 93.5px;" class="sk-image"></image>
+        </view>
+      </view>
+      <view class="cu-item align-center sk-pseudo sk-pseudo-circle" id="3">
+        <view class="nav-func shadow -grey">
+          <image mode="widthFix" style="width: 100%; height: 93.3134px;" class="sk-image"></image>
+        </view>
+      </view>
+    </view>
+    <view class="margin-bottom-sm" style="height:16px;background:rgb(240,240,240)"></view>
+    <view>
+      <view is="components/brickflow/brickflow">
+        <view class="list-container brickflow--list-container">
+          <view class="list-side-box brickflow--list-side-box">
+            <view class="list-item brickflow--list-item" id="card-690">
+              <view class="list-box brickflow--list-box is-expand brickflow--is-expand shadow brickflow--shadow -grey brickflow---grey" data-card-id="690" style="background-color:white;">
+                <view class="text-xl brickflow--text-xl text-red brickflow--text-red" style="position:absolute;right:5px;top:5px">
+                  <text class="cuIcon-like brickflow--cuIcon-like margin-left-sm brickflow--margin-left-sm sk-pseudo sk-pseudo-circle" data-card-id="690"></text>
+                </view>
+                <view class="list-box_content brickflow--list-box_content margin-lr-xs brickflow--margin-lr-xs">
+                  <view class="long-text brickflow--long-text text-lg brickflow--text-lg text-orange brickflow--text-orange sk-transparent sk-text-14-5833-59 sk-text"># Anyone here</view>
+                  <view class="long-text brickflow--long-text text-black brickflow--text-black sk-transparent sk-text-18-7500-122 sk-text">20年母胎单身的我还在等一个有缘人😂 (微信wx_chen66666)
+                  </view>
+                  <view class="flex brickflow--flex align-center brickflow--align-center justify-between brickflow--justify-between margin-tb-xs brickflow--margin-tb-xs">
+                    <view class="flex brickflow--flex align-center brickflow--align-center">
+                      <image class="cu-avatar brickflow--cu-avatar round brickflow--round sm brickflow--sm margin-lr-xs brickflow--margin-lr-xs sk-image" data-user-id="475 " mode="widthFix "></image>
+                      <view class="text-sm brickflow--text-sm sk-transparent sk-text-22-9167-246 sk-text">乙醛啊</view>
+                    </view>
+                    <view class="text-gray brickflow--text-gray sk-transparent">
+                      <text class="cuIcon-attentionfill brickflow--cuIcon-attentionfill margin-xs brickflow--margin-xs sk-pseudo sk-pseudo-circle"></text>395
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="list-item brickflow--list-item" id="card-763">
+              <view class="list-box brickflow--list-box is-expand brickflow--is-expand shadow brickflow--shadow -grey brickflow---grey" data-card-id="763" style="background-color:white;">
+                <view class="text-xl brickflow--text-xl text-red brickflow--text-red" style="position:absolute;right:5px;top:5px">
+                  <text class="cuIcon-like brickflow--cuIcon-like margin-left-sm brickflow--margin-left-sm sk-pseudo sk-pseudo-circle" data-card-id="763"></text>
+                </view>
+                <view class="list-box_content brickflow--list-box_content margin-lr-xs brickflow--margin-lr-xs">
+                  <view class="long-text brickflow--long-text text-lg brickflow--text-lg text-orange brickflow--text-orange sk-transparent sk-text-14-5833-310 sk-text"># 求助</view>
+                  <view class="long-text brickflow--long-text text-black brickflow--text-black sk-transparent sk-text-18-7500-800 sk-text">
+                    你好，广大图书馆电脑怎么登录</view>
+                  <view class="flex brickflow--flex align-center brickflow--align-center justify-between brickflow--justify-between margin-tb-xs brickflow--margin-tb-xs">
+                    <view class="flex brickflow--flex align-center brickflow--align-center">
+                      <image class="cu-avatar brickflow--cu-avatar round brickflow--round sm brickflow--sm margin-lr-xs brickflow--margin-lr-xs sk-image" data-user-id="28882 " mode="widthFix "></image>
+                      <view class="text-sm brickflow--text-sm sk-transparent sk-text-22-9167-593 sk-text">布热比</view>
+                    </view>
+                    <view class="text-gray brickflow--text-gray sk-transparent">
+                      <text class="cuIcon-attentionfill brickflow--cuIcon-attentionfill margin-xs brickflow--margin-xs sk-pseudo sk-pseudo-circle"></text>115
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="list-item brickflow--list-item" id="card-846">
+              <view class="list-box brickflow--list-box is-expand brickflow--is-expand shadow brickflow--shadow -grey brickflow---grey" data-card-id="846" style="background-color:white;">
+                <view class="text-xl brickflow--text-xl text-red brickflow--text-red" style="position:absolute;right:5px;top:5px">
+                  <text class="cuIcon-like brickflow--cuIcon-like margin-left-sm brickflow--margin-left-sm sk-pseudo sk-pseudo-circle" data-card-id="846"></text>
+                </view>
+                <view class="list-box_content brickflow--list-box_content margin-lr-xs brickflow--margin-lr-xs">
+                  <view class="long-text brickflow--long-text text-lg brickflow--text-lg text-orange brickflow--text-orange sk-transparent sk-text-14-5833-48 sk-text"># 找失物</view>
+                  <view class="long-text brickflow--long-text text-black brickflow--text-black sk-transparent sk-text-18-7500-663 sk-text">各位有没有在计算机楼捡到一个U盘，名称是君 羊，丢失时间是星期一（10.26），在计算机楼507，里面有重要的作业，麻烦捡到的朋友联系我一下，谢谢谢谢😁 </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="list-side-box brickflow--list-side-box">
+            <view class="list-item brickflow--list-item" id="card-842">
+              <view class="list-box brickflow--list-box is-expand brickflow--is-expand shadow brickflow--shadow -grey brickflow---grey" data-card-id="842" style="background-color:white;">
+                <view class="text-xl brickflow--text-xl text-red brickflow--text-red" style="position:absolute;right:5px;top:5px">
+                  <text class="cuIcon-like brickflow--cuIcon-like margin-left-sm brickflow--margin-left-sm sk-pseudo sk-pseudo-circle" data-card-id="842"></text>
+                </view>
+                <view class="list-box_content brickflow--list-box_content margin-lr-xs brickflow--margin-lr-xs">
+                  <view class="long-text brickflow--long-text text-lg brickflow--text-lg text-orange brickflow--text-orange sk-transparent sk-text-14-5833-880 sk-text"># 我自己</view>
+                  <view class="long-text brickflow--long-text text-black brickflow--text-black sk-transparent sk-text-18-7500-635 sk-text">我太美了8⃣️ 我每天咒骂我身边男人都没眼光</view>
+                  <view class="flex brickflow--flex align-center brickflow--align-center justify-between brickflow--justify-between margin-tb-xs brickflow--margin-tb-xs">
+                    <view class="flex brickflow--flex align-center brickflow--align-center">
+                      <image class="cu-avatar brickflow--cu-avatar round brickflow--round sm brickflow--sm margin-lr-xs brickflow--margin-lr-xs sk-image" data-user-id="25206 " mode="widthFix "></image>
+                      <view class="text-sm brickflow--text-sm sk-transparent sk-text-22-9167-562 sk-text">Nana</view>
+                    </view>
+                    <view class="text-gray brickflow--text-gray sk-transparent">
+                      <text class="cuIcon-attentionfill brickflow--cuIcon-attentionfill margin-xs brickflow--margin-xs sk-pseudo sk-pseudo-circle"></text>183
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="list-item brickflow--list-item" id="card-621">
+              <view class="list-box brickflow--list-box is-expand brickflow--is-expand shadow brickflow--shadow -grey brickflow---grey" data-card-id="621" style="background-color:white;">
+                <view class="text-xl brickflow--text-xl text-red brickflow--text-red" style="position:absolute;right:5px;top:5px">
+                  <text class="cuIcon-like brickflow--cuIcon-like margin-left-sm brickflow--margin-left-sm sk-pseudo sk-pseudo-circle" data-card-id="621"></text>
+                </view>
+                <view class="list-box_content brickflow--list-box_content margin-lr-xs brickflow--margin-lr-xs">
+                  <view class="long-text brickflow--long-text text-lg brickflow--text-lg text-orange brickflow--text-orange sk-transparent sk-text-14-5833-645 sk-text"># 求助</view>
+                  <view class="long-text brickflow--long-text text-black brickflow--text-black sk-transparent sk-text-18-7500-901 sk-text">校园网怎么怎么开通鸭</view>
+                  <view class="flex brickflow--flex align-center brickflow--align-center justify-between brickflow--justify-between margin-tb-xs brickflow--margin-tb-xs">
+                    <view class="flex brickflow--flex align-center brickflow--align-center">
+                      <image class="cu-avatar brickflow--cu-avatar round brickflow--round sm brickflow--sm margin-lr-xs brickflow--margin-lr-xs sk-image" data-user-id="5637 " mode="widthFix "></image>
+                      <view class="text-sm brickflow--text-sm sk-transparent sk-text-22-9167-557 sk-text">yayaya</view>
+                    </view>
+                    <view class="text-gray brickflow--text-gray sk-transparent">
+                      <text class="cuIcon-attentionfill brickflow--cuIcon-attentionfill margin-xs brickflow--margin-xs sk-pseudo sk-pseudo-circle"></text>146
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="list-item brickflow--list-item" id="card-847">
+              <view class="list-box brickflow--list-box is-expand brickflow--is-expand shadow brickflow--shadow -grey brickflow---grey" data-card-id="847" style="background-color:white;">
+                <view class="text-xl brickflow--text-xl text-red brickflow--text-red" style="position:absolute;right:5px;top:5px">
+                  <text class="cuIcon-like brickflow--cuIcon-like margin-left-sm brickflow--margin-left-sm sk-pseudo sk-pseudo-circle" data-card-id="847"></text>
+                </view>
+                <view class="list-box_content brickflow--list-box_content margin-lr-xs brickflow--margin-lr-xs">
+                  <view class="long-text brickflow--long-text text-lg brickflow--text-lg text-orange brickflow--text-orange sk-transparent sk-text-14-5833-496 sk-text"># 求助</view>
+                  <view class="long-text brickflow--long-text text-black brickflow--text-black sk-transparent sk-text-18-7500-406 sk-text">数院的同学，请问曹广福老师一般什么时候有课，有个朋友想去听听他的课，他比较喜欢这个老师</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

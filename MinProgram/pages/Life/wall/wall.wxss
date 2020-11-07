@@ -1,3 +1,4 @@
+@import "./wall.skeleton.wxss";
 page {
   background: #f8f8f8;
 }

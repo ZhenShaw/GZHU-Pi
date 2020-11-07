@@ -186,14 +186,25 @@ Component({
     // 编辑课表
     navTo(e) {
       switch (e.currentTarget.id) {
-        case "0": //编辑
+        case "0": //添加
           wx.navigateTo({
             url: "/pages/Campus/home/addCourse/addCourse",
           })
           break
-        case "1": //添加
+        case "1": //课评
+          let id = this.data.openTarget
+          let detail = this.data.kbList[id]
+          detail.teacher_id = detail.teacher_id || detail.jgh_id
+
+          if (!detail.course_id || !detail.teacher_id) {
+            wx.showModal({
+              title: "错误提示",
+              content: "该课程信息缺少【课程ID/教师ID】请尝试重新同步课表"
+            })
+            return
+          }
           wx.navigateTo({
-            url: "/pages/Campus/evaluation/evaluation",
+            url: "/pages/Campus/evaluation/detail" + wx.$objectToQuery(detail),
           })
           break
         case "2": //删除
@@ -251,6 +262,7 @@ Component({
 
         // 获取最大周数，小于20取20
         for (let i = 0; i < kbList.length; i++) {
+          if (!Array.isArray(kbList[i].week_section)) continue
           let max = Math.max(...kbList[i].week_section)
           if (max > maxWeeks) {
             maxWeeks = max
@@ -272,6 +284,10 @@ Component({
 
   pageLifetimes: {
     show() {
+      this.setData({
+        week: utils.getSchoolWeek(), //周数
+        schoolWeek: utils.getSchoolWeek(), //校历周
+      })
       // 初次onshow不执行
       if (showTimes) {
         this.viewUpdate()

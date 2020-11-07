@@ -1,4 +1,4 @@
-const Page = require('../../../utils/sdk/ald-stat.js').Page;
+// pages/Campus/evaluation/index.js
 Page({
 
   /**

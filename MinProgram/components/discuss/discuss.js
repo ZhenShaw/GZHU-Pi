@@ -15,10 +15,16 @@ Component({
         this.refresh()
       }
     },
+    // 目标表 t_topic广大墙 / t_teach_evaluation 教评
+    object: {
+      type: String,
+      value: "t_topic"
+    },
   },
 
 
   data: {
+    mark: 0,  //评分
     content: "",
     authorized: true,
     debounce: false,
@@ -148,10 +154,12 @@ Component({
       }
 
       let data = {
+        object: this.data.object,
         object_id: Number(this.data.object_id),
         content: this.data.content,
         anonymous: this.data.anonymous,
-        anonymity: this.data.anonymity
+        anonymity: this.data.anonymity,
+        mark: this.data.mark
       }
       this.create(data)
     },
