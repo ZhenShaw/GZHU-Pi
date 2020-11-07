@@ -14,29 +14,65 @@ Content-Type: application/json
 
 # 模糊搜索
 GET {{baseUrl}}/_QUERIES/topic/v_topic_search?match=求助
-Content-Type: application/x-www-form-urlencoded
-Cookie: {{cookie}}
 
 ###
 
 # 通知查询
 GET {{baseUrl}}/postgres/public/t_notify?status=0&_order=created_at
-Content-Type: application/x-www-form-urlencoded
-Cookie: {{cookie}}
 
 ###
 
 # 主题查询
 GET {{baseUrl}}/gzhupi/public/v_topic?id=$eq.251
-Content-Type: application/x-www-form-urlencoded
-Cookie: {{cookie}}
 
 ###
 
 # 留言查询
 GET {{baseUrl}}/gzhupi/public/v_discuss?id=$eq.220
-Content-Type: application/x-www-form-urlencoded
-Cookie: {{cookie}}
 
 ###
 
+#==============
+课程评价功能接口
+#==============
+
+### 模糊搜索 支持 课程、类型、教师、专业、学院、职称等字段, 结果：数组类型[] 0~30条
+GET {{baseUrl}}/_QUERIES/teach_evaluation/v_teach_evaluation_search?match=专业选修课程
+
+### 课程列表查询 分页、时间倒序 结果：数组类型[] 0~n条
+GET {{baseUrl}}/gzhupi/public/v_teach_evaluation?_page=1&_page_size=20&_order=-order_time
+
+### 根据 课程号&教工号 精确查询详情，结果：数组类型[] 0~1条
+GET {{baseUrl}}/gzhupi/public/v_teach_evaluation?course_id=$eq.131600038&teacher_id=$eq.100171
+
+### 根据课评主键id查询课评留言列表
+GET {{baseUrl}}/gzhupi/public/v_discuss?object=$eq.t_teach_evaluation&object_id=$eq.1
+
+### 课程评价创建 课程号&教工号 为必须项
+POST {{baseUrl}}/gzhupi/public/t_teach_evaluation
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "course_id": "131600038",
+  "teacher_id": "100171",
+  "addi": "{\"course_name\":\"工程项目管理\",\"teacher\":\"李燕枫\"}"
+}
+
+###
+
+#添加课程评价(留言)
+POST {{baseUrl}}/gzhupi/public/t_discuss
+Content-Type: application/json
+
+{
+  "object": "t_teach_evaluation",
+  "object_id": 1,
+  "content": "内容2xxx",
+  "anonymous": true,
+  "anonymity": "匿名匿名",
+  "mark": 4.35
+}
+
+### 通过留言主键id删除留言
+DELETE {{baseUrl}}/gzhupi/public/t_discuss?id=$eq.1976

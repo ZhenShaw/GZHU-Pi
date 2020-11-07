@@ -116,7 +116,7 @@ func AddCourseNotify(courses []*env.TStuCourse, firstMonday string) (err error) 
 			}
 			//Digest唯一哈希： 通知时间、课程、学生、班级、通知对象 都一样的情况下，只能存在一条
 			notify := env.TNotify{
-				Digest:   null.StringFrom(env.StringMD5(t.String() + c.StuID + c.CourseID + c.JghID + user.MpOpenID.String)),
+				Digest:   null.StringFrom(env.StringMD5(t.String() + c.StuID + c.CourseID + c.TeacherID + user.MpOpenID.String)),
 				Type:     null.StringFrom("上课提醒"),
 				SentTime: t.Add(-beforeMinutes * time.Minute), //提前指定时间
 

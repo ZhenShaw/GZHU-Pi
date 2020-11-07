@@ -24,19 +24,20 @@ type TApiRecord struct {
 
 type TDiscuss struct {
 	ID       int64       `json:"id,omitempty" remark:"自增id" gorm:"primary_key"`
+	Object   string      `json:"object,omitempty" remark:"实体表名" gorm:"type:varchar;not null"`
 	ObjectID int64       `json:"object_id,omitempty" remark:"主题对象记录ID" gorm:"type:bigint;not null"`
 	Content  null.String `json:"content,omitempty" remark:"主体内容" gorm:"type:varchar"`
 	ReplyID  null.Int    `json:"reply_id,omitempty" remark:"回复留言id" gorm:"type:bigint"` // reference to t_discuss(id)
 
-	//Mark      null.Int       `json:"mark,omitempty" remark:"打星、评分" gorm:"type:smallint"`
+	Mark      null.Float     `json:"mark,omitempty" remark:"打星、评分" gorm:"type:numeric(5,2)"`
 	Image     types.JSONText `json:"image,omitempty" remark:"图片地址[string]" gorm:"type:varchar[]"`
 	Anonymous null.Bool      `json:"anonymous,omitempty" remark:"是否匿名" gorm:"type:bool;default:false"`
 	Anonymity null.String    `json:"anonymity,omitempty" remark:"匿名/化名" gorm:"type:varchar"`
 
 	//Type      null.String    `json:"type,omitempty" remark:"留言类型(普通/互动)" gorm:"type:varchar"`
 	Addi      types.JSONText `json:"addi,omitempty" remark:"附加信息" gorm:"type:jsonb"`
-	Status    null.Int       `json:"status,omitempty" remark:"状态" gorm:"type:real;default:0"`
-	CreatedBy null.Int       `json:"created_by,omitempty" remark:"创建者" gorm:"type:real"`
+	Status    null.Int       `json:"status,omitempty" remark:"状态" gorm:"type:smallint;default:0"`
+	CreatedBy null.Int       `json:"created_by,omitempty" remark:"创建者" gorm:"type:bigint"`
 	CreatedAt time.Time      `json:"created_at,omitempty" remark:"创建时间" gorm:"default:current_timestamp"`
 }
 
@@ -65,11 +66,10 @@ type TGrade struct {
 
 //用户与主题的关系记录 可以用以点赞、参与等
 type TRelation struct {
-	ID       int64       `json:"id,omitempty" remark:"自增id" gorm:"primary_key"`
-	Object   null.String `json:"object,omitempty" remark:"实体表名"`
-	ObjectID int64       `json:"object_id,omitempty" remark:"主题对象记录ID" gorm:"type:bigint;not null"`
-	//star点赞 claim认领 favourite收藏
-	Type null.String `json:"type,omitempty" remark:"关系类型" gorm:"type:varchar"`
+	ID       int64  `json:"id,omitempty" remark:"自增id" gorm:"primary_key"`
+	Object   string `json:"object,omitempty" remark:"实体表名" gorm:"type:varchar;not null"`
+	ObjectID int64  `json:"object_id,omitempty" remark:"主题对象记录ID" gorm:"type:bigint;not null"`
+	Type     string `json:"type,omitempty" remark:"关系类型:star点赞 claim认领 favourite收藏" gorm:"type:varchar;not null"`
 
 	CreatedBy null.Int  `json:"created_by,omitempty" remark:"创建者" gorm:"type:bigint"`
 	CreatedAt time.Time `json:"created_at,omitempty" remark:"创建时间" gorm:"default:current_timestamp"`
@@ -176,7 +176,7 @@ type TStuCourse struct {
 	CourseName  string  `json:"course_name" remark:"课程名称" gorm:"type:varchar"`
 	CourseTime  string  `json:"course_time" remark:"上课时间" gorm:"type:varchar"`
 	Credit      float64 `json:"credit" remark:"学分" gorm:"type:varchar"`
-	JghID       string  `json:"jgh_id" remark:"教工号ID" gorm:"type:varchar"`
+	TeacherID   string  `json:"teacher_id" remark:"教工号ID" gorm:"type:varchar"`
 	Last        int64   `json:"last" remark:"持续节数" gorm:"type:smallint"`
 	Start       int64   `json:"start" remark:"开始节数" gorm:"type:smallint"`
 	Teacher     string  `json:"teacher" remark:"教师" gorm:"type:varchar"`
@@ -207,6 +207,75 @@ type TNotify struct {
 
 	Addi      types.JSONText `json:"addi,omitempty" remark:"附加信息" gorm:"type:jsonb"`
 	Status    null.Int       `json:"status,omitempty" remark:"状态0未通知，2已通知" gorm:"type:smallint;default:0"`
+	CreatedBy null.Int       `json:"created_by,omitempty" remark:"创建者" gorm:"type:bigint"`
+	CreatedAt time.Time      `json:"created_at,omitempty" remark:"创建时间" gorm:"default:current_timestamp"`
+	UpdatedAt time.Time      `json:"updated_at,omitempty" remark:"更新时间" gorm:"default:current_timestamp"`
+}
+
+//全校实时课表原始数据
+type TRawCourse struct {
+	ID int64 `json:"id,omitempty" remark:"自增id" gorm:"primary_key"`
+
+	//唯一索引
+	KchID string `json:"kch_id" gorm:"type:varchar"`
+	Cdbh  string `json:"cdbh" gorm:"type:varchar"`
+	JghID string `json:"jgh_id" gorm:"type:varchar"`
+	JxbID string `json:"jxb_id" gorm:"type:varchar"`
+	Xn    string `json:"xn" gorm:"type:varchar"`
+	Qsjsz string `json:"qsjsz" gorm:"type:varchar"`
+	Skjc  string `json:"skjc" gorm:"type:varchar"`
+	Xqj   int    `json:"xqj" gorm:"type:int"`
+
+	Jxbmc   string  `json:"jxbmc" gorm:"type:varchar"`
+	Jgh     string  `json:"jgh" gorm:"type:varchar"`
+	Kch     string  `json:"kch" gorm:"type:varchar"`
+	Cdlbmc  string  `json:"cdlbmc" gorm:"type:varchar"`
+	Cdmc    string  `json:"cdmc" gorm:"type:varchar"`
+	Cdqsjsz string  `json:"cdqsjsz" gorm:"type:varchar"`
+	Cdskjc  string  `json:"cdskjc" gorm:"type:varchar"`
+	Jslxdh  string  `json:"jslxdh" gorm:"type:varchar"`
+	Jsxy    string  `json:"jsxy" gorm:"type:varchar"`
+	Jxbrs   int     `json:"jxbrs" gorm:"type:int"`
+	Jxbzc   string  `json:"jxbzc" gorm:"type:varchar"`
+	Jxdd    string  `json:"jxdd" gorm:"type:varchar"`
+	Jxlmc   string  `json:"jxlmc" gorm:"type:varchar"`
+	Kcmc    string  `json:"kcmc" gorm:"type:varchar"`
+	Kcxzmc  string  `json:"kcxzmc" gorm:"type:varchar"`
+	KkbmID  string  `json:"kkbm_id" gorm:"type:varchar"`
+	Kkxy    string  `json:"kkxy" gorm:"type:varchar"`
+	Rwzxs   string  `json:"rwzxs" gorm:"type:varchar"`
+	Sksj    string  `json:"sksj" gorm:"type:varchar"`
+	Xbmc    string  `json:"xbmc" gorm:"type:varchar"`
+	Xf      float64 `json:"xf" gorm:"type:numeric(5,2)"`
+	Xkrs    int     `json:"xkrs" gorm:"type:int"`
+	Xm      string  `json:"xm" gorm:"type:varchar"`
+	Xnm     string  `json:"xnm" gorm:"type:varchar"`
+	Xq      string  `json:"xq" gorm:"type:varchar"`
+	XqhID   string  `json:"xqh_id" gorm:"type:varchar"`
+	Xqm     string  `json:"xqm" gorm:"type:varchar"`
+	Xqmc    string  `json:"xqmc" gorm:"type:varchar"`
+	Zcmc    string  `json:"zcmc" gorm:"type:varchar"`
+	Zgxl    string  `json:"zgxl" gorm:"type:varchar"`
+	Zhxs    string  `json:"zhxs" gorm:"type:varchar"`
+	Zjxh    int     `json:"zjxh" gorm:"type:int"`
+	Zyzc    string  `json:"zyzc" gorm:"type:varchar"`
+	Zcd     int     `json:"zcd" gorm:"type:int"`
+	Jc      int     `json:"jc" gorm:"type:int"`
+	Cdjc    int     `json:"cdjc" gorm:"type:int"`
+	Zws     int     `json:"zws" gorm:"type:int"`
+	Lch     int     `json:"lch" gorm:"type:int"`
+
+	CreatedAt time.Time `json:"created_at,omitempty" remark:"创建时间" gorm:"default:current_timestamp"`
+}
+
+type TTeachEvaluation struct {
+	ID int64 `json:"id,omitempty" remark:"自增id" gorm:"primary_key"`
+
+	CourseID  string `json:"course_id,omitempty" remark:"课程号" gorm:"type:varchar;not null"`
+	TeacherID string `json:"teacher_id,omitempty" remark:"教师工号" gorm:"type:varchar;not null"`
+
+	Addi      types.JSONText `json:"addi,omitempty" remark:"附加信息" gorm:"type:jsonb"`
+	Status    null.Int       `json:"status,omitempty" remark:"状态" gorm:"type:smallint;default:0"`
 	CreatedBy null.Int       `json:"created_by,omitempty" remark:"创建者" gorm:"type:bigint"`
 	CreatedAt time.Time      `json:"created_at,omitempty" remark:"创建时间" gorm:"default:current_timestamp"`
 	UpdatedAt time.Time      `json:"updated_at,omitempty" remark:"更新时间" gorm:"default:current_timestamp"`

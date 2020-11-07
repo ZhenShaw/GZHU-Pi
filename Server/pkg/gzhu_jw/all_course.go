@@ -1,6 +1,7 @@
 package gzhu_jw
 
 import (
+	"GZHU-Pi/env"
 	"fmt"
 	"github.com/astaxie/beego/logs"
 	jsoniter "github.com/json-iterator/go"
@@ -12,52 +13,7 @@ import (
 )
 
 type RawCourse struct {
-	Cdbh    string `json:"cdbh"`
-	Cdlbmc  string `json:"cdlbmc"`
-	Cdmc    string `json:"cdmc"`
-	Cdqsjsz string `json:"cdqsjsz"`
-	Cdskjc  string `json:"cdskjc"`
-	Jgh     string `json:"jgh"`
-	JghID   string `json:"jgh_id"`
-	Jslxdh  string `json:"jslxdh"`
-	Jsxy    string `json:"jsxy"`
-	JxbID   string `json:"jxb_id"`
-	Jxbmc   string `json:"jxbmc"`
-	Jxbrs   int    `json:"jxbrs"`
-	Jxbzc   string `json:"jxbzc"`
-	Jxdd    string `json:"jxdd"`
-	Jxlmc   string `json:"jxlmc"`
-	Kch     string `json:"kch"`
-	KchID   string `json:"kch_id"`
-	Kcmc    string `json:"kcmc"`
-	Kcxzmc  string `json:"kcxzmc"`
-	KkbmID  string `json:"kkbm_id"`
-	Kkxy    string `json:"kkxy"`
-	Qsjsz   string `json:"qsjsz"`
-	Rwzxs   string `json:"rwzxs"`
-	Skjc    string `json:"skjc"`
-	Sksj    string `json:"sksj"`
-	Xbmc    string `json:"xbmc"`
-	Xf      string `json:"xf"`
-	Xkrs    int    `json:"xkrs"`
-	Xm      string `json:"xm"`
-	Xnm     string `json:"xnm"`
-	Xn      string `json:"xn"`
-	Xq      string `json:"xq"`
-	XqhID   string `json:"xqh_id"`
-	Xqj     int    `json:"xqj"`
-	Xqm     string `json:"xqm"`
-	Xqmc    string `json:"xqmc"`
-	Zcmc    string `json:"zcmc"`
-	Zgxl    string `json:"zgxl"`
-	Zhxs    string `json:"zhxs"`
-	Zjxh    int    `json:"zjxh"`
-	Zyzc    string `json:"zyzc"`
-	Zcd     int    `json:"zcd"`
-	Jc      int    `json:"jc"`
-	Cdjc    int    `json:"cdjc"`
-	Zws     int    `json:"zws"`
-	Lch     int    `json:"lch"`
+	env.TRawCourse
 }
 
 //查询全校课表
@@ -142,7 +98,7 @@ func ToCsvFormat(all []RawCourse) (data []byte) {
 		var values []string
 		values = append(values, v.Cdbh, v.Cdlbmc, v.Cdmc, v.Cdqsjsz, v.Cdskjc, v.Jgh, v.JghID, v.Jslxdh,
 			v.Jsxy, v.JxbID, v.Jxbmc, fmt.Sprint(v.Jxbrs), v.Jxbzc, v.Jxdd, v.Jxlmc, v.Kch, v.KchID, v.Kcmc, v.Kcxzmc,
-			v.KkbmID, v.Kkxy, v.Qsjsz, v.Rwzxs, v.Skjc, v.Sksj, v.Xbmc, v.Xf, fmt.Sprint(v.Xkrs), v.Xm, v.Xnm, v.Xn,
+			v.KkbmID, v.Kkxy, v.Qsjsz, v.Rwzxs, v.Skjc, v.Sksj, v.Xbmc, fmt.Sprint(v.Xf), fmt.Sprint(v.Xkrs), v.Xm, v.Xnm, v.Xn,
 			v.Xq, v.XqhID, fmt.Sprint(v.Xqj), v.Xqm, v.Xqmc, v.Zcmc, v.Zgxl, v.Zhxs, fmt.Sprint(v.Zjxh),
 			v.Zyzc, fmt.Sprint(v.Zcd), fmt.Sprint(v.Jc), fmt.Sprint(v.Cdjc), fmt.Sprint(v.Zws), fmt.Sprint(v.Lch))
 

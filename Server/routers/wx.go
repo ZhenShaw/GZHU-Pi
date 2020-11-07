@@ -99,9 +99,9 @@ func wxInit() (ok bool) {
 					AppID:    MinAppID,
 					PagePath: "pages/Campus/grade/achieve",
 				}, {
-					Type: "click",
-					Name: "优惠券",
-					Key:  "coupon",
+					Type:    "media_id",
+					Name:    "文章投稿",
+					MediaID: "oVb96gPsyuxuaUAhLrub2xqckeMWzoCC5UqwkwGUHLo",
 				},
 			},
 		}, {
@@ -160,6 +160,10 @@ func wxInit() (ok bool) {
 					Type:    "media_id",
 					Name:    "联系派派",
 					MediaID: "oVb96gPsyuxuaUAhLrub2xqckeMWzoCC5UqwkwGUHLo",
+				}, {
+					Type: "view",
+					Name: "广大灯塔",
+					URL:  "https://hello.acastu.com",
 				},
 			},
 		},

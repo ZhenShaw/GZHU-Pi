@@ -111,7 +111,7 @@ func ParseCourse(body []byte, matcher map[string]float64) (courses []*env.TStuCo
 		c.ClassPlace = kbList.Get(i).Get("cdmc").ToString()
 		c.CourseName = kbList.Get(i).Get("kcmc").ToString()
 		c.CourseTime = kbList.Get(i).Get("jc").ToString()
-		c.JghID = kbList.Get(i).Get("jgh_id").ToString()
+		c.TeacherID = kbList.Get(i).Get("jgh_id").ToString()
 		c.Weeks = kbList.Get(i).Get("zcd").ToString()
 		c.WhichDay = kbList.Get(i).Get("xqjmc").ToString()
 		c.Teacher = kbList.Get(i).Get("xm").ToString()

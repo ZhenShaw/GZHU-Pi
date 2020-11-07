@@ -23,15 +23,15 @@ import (
 //是否关闭匿名视图
 func fake(u *env.VUser) bool {
 
-	if u.ID <= 2 || u.ID > 0 {
+	if u.ID <= 2 && u.ID > 0 {
 		return true
 	}
 	if isTestUser(u.StuID.String) {
-		return true
-	}
-	if len(u.StuID.String) > 2 {
 		return false
 	}
+	//if len(u.StuID.String) > 2 {
+	//	return false
+	//}
 	return false
 }
 
@@ -59,17 +59,17 @@ func TableAccessHandle(w http.ResponseWriter, r *http.Request, next http.Handler
 	if strings.ToUpper(r.Method) == "GET" {
 
 		if !strings.Contains(strings.ToUpper(r.URL.Path), "QUERIES") && strings.Contains(r.URL.Path, "v_topic") || strings.Contains(r.URL.Path, "v_discuss") {
-			ctx, err := InitCtx(w, r)
-			if err != nil {
-				return
-			}
-			p := getCtxValue(ctx)
-			if fake(p.user) && strings.Contains(r.URL.Path, "v_topic") {
-				r.URL.Path = strings.ReplaceAll(r.URL.Path, "v_topic", "v_topic2")
-			}
-			if fake(p.user) && strings.Contains(r.URL.Path, "v_discuss") {
-				r.URL.Path = strings.ReplaceAll(r.URL.Path, "v_discuss", "v_discuss2")
-			}
+			//ctx, err := InitCtx(w, r)
+			//if err != nil {
+			//	return
+			//}
+			//p := getCtxValue(ctx)
+			//if fake(p.user) && strings.Contains(r.URL.Path, "v_topic") {
+			//	r.URL.Path = strings.ReplaceAll(r.URL.Path, "v_topic", "v_topic2")
+			//}
+			//if fake(p.user) && strings.Contains(r.URL.Path, "v_discuss") {
+			//	r.URL.Path = strings.ReplaceAll(r.URL.Path, "v_discuss", "v_discuss2")
+			//}
 		}
 
 		next(w, r)
@@ -102,7 +102,8 @@ func TableAccessHandle(w http.ResponseWriter, r *http.Request, next http.Handler
 				Response(w, r, nil, http.StatusOK, "")
 			}
 			return
-
+		case strings.Contains(r.URL.Path, "t_teach_evaluation"):
+			err = teachEvaluationCheck(ctx)
 		default:
 			err = fmt.Errorf("illegal request")
 		}
@@ -243,6 +244,11 @@ func discussCheck(ctx context.Context) (err error) {
 		logs.Error(err)
 		return
 	}
+	//if t.Object == "" {
+	//	err = fmt.Errorf("必要字段咋能为空")
+	//	logs.Error(err)
+	//	return
+	//}
 	if t.ObjectID <= 0 || t.Content.String == "" {
 		err = fmt.Errorf("必要字段咋能为空")
 		logs.Error(err)
@@ -292,12 +298,12 @@ func relationCheck(ctx context.Context) (err error) {
 		logs.Error(err)
 		return
 	}
-	if t.Object.String != "t_topic" && t.Object.String != "t_discuss" {
-		err = fmt.Errorf("unsupported object name: %s", t.Object.String)
+	if t.Object != "t_topic" && t.Object != "t_discuss" {
+		err = fmt.Errorf("unsupported object name: %s", t.Object)
 		logs.Error(err)
 		return
 	}
-	if t.Type.String != "star" && t.Type.String != "claim" && t.Type.String != "favourite" {
+	if t.Type != "star" && t.Type != "claim" && t.Type != "favourite" {
 		err = fmt.Errorf("Are you kidding me ? ")
 		logs.Error(err)
 		return
@@ -490,6 +496,45 @@ func courseNotifyCheck(ctx context.Context) (err error) {
 	}
 
 	time.Sleep(200 * time.Millisecond)
+
+	return
+}
+
+func teachEvaluationCheck(ctx context.Context) (err error) {
+	p := getCtxValue(ctx)
+
+	body, err := ioutil.ReadAll(p.r.Body)
+	if err != nil {
+		logs.Error(err)
+		return
+	}
+	defer p.r.Body.Close()
+	if len(body) == 0 {
+		err = fmt.Errorf("Call api by post with empty body ")
+		logs.Error(err)
+		return
+	}
+	var t env.TTeachEvaluation
+	err = json.Unmarshal(body, &t)
+	if err != nil {
+		logs.Error(err)
+		return
+	}
+	if t.CourseID == "" || t.TeacherID == "" {
+		err = fmt.Errorf("Are you kidding me ? ")
+		logs.Error(err)
+		return
+	}
+	if t.CreatedBy.Valid {
+		err = fmt.Errorf("不能手动指定created_by")
+		logs.Error(err)
+		return
+	}
+
+	newBodyStr := fmt.Sprintf(`%s,"created_by":%d}`, strings.TrimSuffix(string(body), "}"), p.user.ID)
+
+	body = []byte(newBodyStr)
+	p.r.Body = ioutil.NopCloser(bytes.NewBuffer(body))
 
 	return
 }

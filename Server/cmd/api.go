@@ -177,6 +177,8 @@ func customRouter(r *mux.Router) *mux.Router {
 
 	//四六级、普通话考试查询
 	r.HandleFunc("/cet", rt.Recover(rt.GetCet)).Methods("GET")
+	r.HandleFunc("/pastCetCaptcha", rt.Recover(rt.GetPastCetCaptcha)).Methods("GET")
+	r.HandleFunc("/pastCet", rt.Recover(rt.GetPastCet)).Methods("GET")
 	//r.HandleFunc("/exam/chinese", test).Methods("POST")
 	return r
 }
