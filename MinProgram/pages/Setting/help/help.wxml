@@ -1,5 +1,0 @@
-<navBar title="使用帮助" titleColor="" navColor="" hideBackBtn=""></navBar>
-
-<view class='body'>
-  <image bindtap='view' wx:for="{{url}}" wx:key="index" data-img="{{url[index]}}" style='width:100%' mode='widthFix' src='{{item}}'></image>
-</view>

@@ -1,8 +1,0 @@
-{
-  "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "navBar": "/pages/Components/navBar",
-    "modal": "/pages/Components/modal"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "navBar": "/pages/Components/navBar",
-    "modal": "/pages/Components/modal",
-    "drawer-modal": "/pages/Components/drawer-modal"
-  }
-}

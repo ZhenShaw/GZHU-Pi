@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "modal": "/module/com/modal",
-    "poster": "/module/com/wxcanvas/poster/index"
-  }
-}

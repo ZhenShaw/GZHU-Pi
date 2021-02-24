@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "navBar": "/pages/Components/navBar",
-    "tui-tabs": "/components/tui-tabs/tui-tabs",
-    "fake": "/components/fake/fake"
-  }
-}

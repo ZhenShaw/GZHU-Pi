@@ -1,4 +1,0 @@
-<view class='content' hidden="{{!res.show}}" bindtap='nav'>
-  <text class='text'>{{res.text}}</text>
-  <image bindtap="close" class="close" style='width:30rpx;height:30rpx' src="/assets/cancel.svg"></image>
-</view>

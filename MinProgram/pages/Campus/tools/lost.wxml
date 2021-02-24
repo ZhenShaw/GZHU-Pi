@@ -1,2 +1,0 @@
-<navBar title="失物招领"  navColor="white" ></navBar>
-<web-view src="https://pi.ifeel.vip/ssm_wechat/goods/goodsIndex.do"></web-view>

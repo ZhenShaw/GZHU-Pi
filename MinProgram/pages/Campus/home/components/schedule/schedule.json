@@ -1,9 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "navBar": "/pages/Components/navBar",
-    "cell": "/pages/Campus/home/components/courseCell/courseCell",
-    "modal": "/pages/Components/modal",
-    "selectWeek": "/pages/Campus/home/components/selectWeek/selectWeek"
-  }
-}

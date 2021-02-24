@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "navBar": "/pages/Components/navBar",
-    "discuss": "/components/discuss/discuss",
-    "fake": "/components/fake/fake"
-  }
-}

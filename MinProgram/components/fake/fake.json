@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "navBar": "/pages/Components/navBar"
-  }
-}

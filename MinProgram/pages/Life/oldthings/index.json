@@ -1,9 +1,0 @@
-{
-  "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "navBar": "/pages/Components/navBar",
-    "brickflow": "/components/brickflow/brickflow",
-    "fake": "/components/fake/fake"
-  }
-}
