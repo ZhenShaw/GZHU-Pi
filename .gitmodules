@@ -1,7 +1,7 @@
 [submodule "MinProgram"]
 	path = MinProgram
-	url = ./MinProgram
+	url = git@github.com:GZHU-Pi/gzhupi-miniapp.git
 
 [submodule "Server"]
 	path = Server
-	url = ./Server
+	url = git@github.com:GZHU-Pi/gzhupi-server.git
