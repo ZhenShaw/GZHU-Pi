@@ -12,7 +12,7 @@ Resources:
         Handler: index.handler
         Runtime: custom
         Timeout: 20
-        MemorySize: 256
+        MemorySize: 512
         EnvironmentVariables:
           GZHUPI_DB_DBNAME: postgres
           GZHUPI_DB_HOST: localhost

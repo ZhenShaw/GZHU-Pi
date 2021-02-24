@@ -38,7 +38,7 @@ steps:
       GZHUPI_REDIS_PASSWORD:
         from_secret: GZHUPI_REDIS_PASSWORD
     commands:
-      - cd Server
+      - cd gzhupi-server
       - docker-compose -f docker-compose-gzhupi.yml up -d --build
 
 volumes:
